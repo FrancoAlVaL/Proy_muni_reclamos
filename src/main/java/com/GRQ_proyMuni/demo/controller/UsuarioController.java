@@ -5,10 +5,14 @@ import com.GRQ_proyMuni.demo.service.UsuarioService;
 import com.GRQ_proyMuni.demo.service.RolService;
 import com.GRQ_proyMuni.demo.service.AreaService;
 import com.GRQ_proyMuni.demo.service.PasswordService;
+import jakarta.validation.Valid;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 
@@ -28,6 +32,9 @@ public class UsuarioController {
     @Autowired
     private PasswordService passwordService;
 
+    @Autowired
+    private Validator validator;
+
     // Mostrar formulario de registro 
     @GetMapping("/registro")
     public String mostrarRegistro(Model model) {
@@ -38,10 +45,30 @@ public class UsuarioController {
 
     // Procesar el registro de un nuevo usuario
     @PostMapping("/registro")
-    public String guardarUsuario(@ModelAttribute Usuario usuario,
+    public String guardarUsuario(@Valid @ModelAttribute Usuario usuario,
+                                 BindingResult bindingResult,
                                  @RequestParam String passwordConfirm,
+                                 @RequestParam(required = false) String terms,
                                  HttpSession session,
                                  Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Revisa los datos ingresados y corrige los campos inválidos.");
+            return "registro";
+        }
+        if (usuario.getCelular() == null || usuario.getCelular().isBlank()
+                || usuario.getDireccion() == null || usuario.getDireccion().isBlank()) {
+            model.addAttribute("error", "El teléfono y la dirección son obligatorios.");
+            model.addAttribute("usuario", usuario);
+            return "registro";
+        }
+        if (usuario.getFechaNacimiento() == null) {
+            model.addAttribute("error", "La fecha de nacimiento es obligatoria.");
+            return "registro";
+        }
+        if (!"on".equals(terms)) {
+            model.addAttribute("error", "Debes aceptar los términos y condiciones.");
+            return "registro";
+        }
         if (usuario.getPassword() == null || usuario.getPassword().length() < 8
                 || !usuario.getPassword().equals(passwordConfirm)) {
             model.addAttribute("error", "La contraseña debe tener al menos 8 caracteres y coincidir con la confirmación.");
@@ -119,9 +146,76 @@ public class UsuarioController {
         return "usuarios";
     }
 
+    @GetMapping("/{id}/editar")
+    public String mostrarEdicionUsuario(@PathVariable Integer id, Model model) {
+        Usuario usuario = usuarioService.buscarPorId(id)
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND));
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("roles", rolService.listarTodos());
+        model.addAttribute("areas", areaService.listarTodos());
+        return "editar-usuario";
+    }
+
+    @PostMapping("/{id}/editar")
+    public String actualizarUsuario(@PathVariable Integer id,
+                                    @RequestParam String tipoDocumento,
+                                    @RequestParam String numeroDocumento,
+                                    @RequestParam String nombre,
+                                    @RequestParam String apellidos,
+                                    @RequestParam String correo,
+                                    @RequestParam(required = false) String celular,
+                                    @RequestParam Integer rolId,
+                                    @RequestParam Integer areaId,
+                                    RedirectAttributes redirectAttributes) {
+        Usuario usuario = usuarioService.buscarPorId(id)
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND));
+
+        String correoNormalizado = correo.trim();
+        boolean correoDuplicado = usuarioService.buscarPorCorreo(correoNormalizado)
+                .filter(otro -> !otro.getIdUsuario().equals(id)).isPresent();
+        boolean documentoDuplicado = usuarioService.buscarPorDni(numeroDocumento.trim())
+                .filter(otro -> !otro.getIdUsuario().equals(id)).isPresent();
+        if (correoDuplicado || documentoDuplicado) {
+            redirectAttributes.addFlashAttribute("error", "El correo o documento ya está registrado.");
+            return "redirect:/usuarios/" + id + "/editar";
+        }
+
+        usuario.setTipoDocumento(tipoDocumento.trim());
+        usuario.setNumeroDocumento(numeroDocumento.trim());
+        usuario.setNombre(nombre.trim());
+        usuario.setApellidos(apellidos.trim());
+        usuario.setCorreo(correoNormalizado);
+        usuario.setCelular(celular == null || celular.isBlank() ? null : celular.trim());
+        usuario.setRol(rolService.buscarPorId(rolId)
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.BAD_REQUEST, "Selecciona un rol válido.")));
+        usuario.setArea(areaService.buscarPorId(areaId)
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.BAD_REQUEST, "Selecciona un área válida.")));
+
+        if (!validator.validate(usuario).isEmpty()) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Revisa los datos ingresados. Verifica los campos obligatorios, el correo y sus longitudes.");
+            return "redirect:/usuarios/" + id + "/editar";
+        }
+
+        usuarioService.guardar(usuario);
+        redirectAttributes.addFlashAttribute("mensaje", "Usuario actualizado correctamente.");
+        return "redirect:/usuarios/lista";
+    }
+
     @PostMapping
-    public String crearUsuarioAdministrativo(@ModelAttribute Usuario usuario,
-                                             @RequestParam String passwordConfirm) {
+    public String crearUsuarioAdministrativo(@Valid @ModelAttribute Usuario usuario,
+                                             BindingResult bindingResult,
+                                             @RequestParam String passwordConfirm,
+                                             RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Revisa los datos ingresados y corrige los campos inválidos.");
+            return "redirect:/usuarios/lista";
+        }
         if (usuario.getPassword() == null || usuario.getPassword().length() < 8
                 || !usuario.getPassword().equals(passwordConfirm)) {
             throw new IllegalArgumentException("La contraseña debe tener al menos 8 caracteres y coincidir.");

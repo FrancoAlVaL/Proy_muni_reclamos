@@ -5,114 +5,99 @@
 
 <body>
 
+    <!-- Navbar Admin -->
     <nav th:replace="~{fragments/layout :: nav-admin('usuarios')}"></nav>
 
-    <main class="container my-4">
-        <nav aria-label="breadcrumb" class="mb-3">
-            <a th:href="@{/admin/estadisticas}" class="text-danger"><i class="fas fa-home"></i> Inicio</a>
-            <span class="text-muted mx-2">/</span>
-            <span class="text-muted">Gestión de Usuarios</span>
-        </nav>
+    <main class="main">
+        <div class="container">
+            <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+            <div th:if="${mensaje}" class="alert alert-success" role="alert" th:text="${mensaje}"></div>
+            
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a th:href="@{/reclamos/bandeja}"><i class="fas fa-home me-1"></i> Inicio</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Gestión de Usuarios</span>
+            </div>
 
-        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
-            <div>
-                <h2 class="fw-bold mb-0">Gestión de Usuarios</h2>
-                <small class="text-muted">Administre los usuarios del sistema</small>
+            <!-- Encabezado -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Gestión de Usuarios</h1>
+                    <p class="page-subtitle">Administre los usuarios del sistema</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn--outline-red" onclick="exportarTabla()">
+                        <i class="fas fa-file-export me-1"></i> Exportar
+                    </button>
+                    <button class="btn btn--primary" onclick="abrirModal()">
+                        <i class="fas fa-user-plus me-1"></i> Nuevo Usuario
+                    </button>
+                </div>
             </div>
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-danger" type="button" data-export-table="#tablaUsuarios">
-                    <i class="fas fa-file-export"></i> Exportar
-                </button>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalUsuario">
-                    <i class="fas fa-user-plus"></i> Nuevo Usuario
-                </button>
-            </div>
-        </div>
 
-        <!-- Stats -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-danger border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-danger text-white rounded p-3"><i class="fas fa-users fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${totalUsuarios}">24</div><small
-                                class="text-muted">Total</small>
-                        </div>
+            <!-- Tarjetas de Resumen -->
+            <div class="stats-grid stats-grid--4">
+                <div class="stat-card stat-card--users">
+                    <div class="stat-icon stat-icon--primary"><i class="fas fa-users"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${totalUsuarios}">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #198754;">
+                    <div class="stat-icon stat-icon--success"><i class="fas fa-user-check"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${activos}">0</span>
+                        <span class="stat-label">Activos</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #6c757d;">
+                    <div class="stat-icon" style="background: #6c757d;"><i class="fas fa-user-slash"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${inactivos}">0</span>
+                        <span class="stat-label">Inactivos</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #ffc107;">
+                    <div class="stat-icon stat-icon--warning"><i class="fas fa-user-clock"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${online}">0</span>
+                        <span class="stat-label">Conectados</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-success border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-success text-white rounded p-3"><i class="fas fa-user-check fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${activos}">19</div><small
-                                class="text-muted">Activos</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-secondary border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-secondary text-white rounded p-3"><i class="fas fa-user-slash fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${inactivos}">5</div><small
-                                class="text-muted">Inactivos</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-warning border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-warning text-white rounded p-3"><i class="fas fa-user-clock fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${online}">3</div><small
-                                class="text-muted">Conectados</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Filtros -->
-        <div class="card shadow-sm mb-3" data-filter-scope>
-            <div class="card-body">
-                <div class="row g-2">
-                    <div class="col-md-4">
-                        <input type="search" class="form-control" placeholder="Buscar por nombre, correo o DNI..."
-                            data-text-filter data-filter-table="#tablaUsuarios">
-                    </div>
-                    <div class="col-md-2"><select class="form-select" data-role-filter
-                            data-filter-table="#tablaUsuarios">
-                            <option value="">Todos los roles</option>
-                            <option th:each="r : ${roles}" th:value="${r.nombreRol}" th:text="${r.nombreRol}"></option>
-                        </select></div>
-                    <div class="col-md-2"><select class="form-select" data-active-filter
-                            data-filter-table="#tablaUsuarios">
-                            <option value="">Todos los estados</option>
-                            <option value="true">Activo</option>
-                            <option value="false">Inactivo</option>
-                        </select></div>
-                    <div class="col-md-2"><select class="form-select" data-area-filter
-                            data-filter-table="#tablaUsuarios">
-                            <option value="">Todas las áreas</option>
-                            <option th:each="a : ${areas}" th:value="${a.nombreArea}" th:text="${a.nombreArea}"></option>
-                        </select></div>
-                    <div class="col-md-2"><button type="button" data-clear-filters
-                            class="btn btn-outline-secondary w-100"><i
-                                class="fas fa-sync-alt"></i> Limpiar</button></div>
+            <!-- Barra de Filtros -->
+            <div class="filters-bar">
+                <div class="filters-bar__search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="buscarUsuario" class="form-input" placeholder="Buscar por nombre, correo o DNI...">
+                </div>
+                <div class="filters-bar__group">
+                    <select id="filtroRol" class="form-select">
+                        <option value="">Todos los roles</option>
+                        <option th:each="rol : ${roles}" th:value="${rol.nombreRol}" th:text="${rol.nombreRol}">Rol</option>
+                    </select>
+                    <select id="filtroEstado" class="form-select">
+                        <option value="">Todos los estados</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                    <select id="filtroArea" class="form-select">
+                        <option value="">Todas las áreas</option>
+                        <option th:each="area : ${areas}" th:value="${area.nombreArea}" th:text="${area.nombreArea}">Área</option>
+                    </select>
+                    <button class="btn btn--secondary btn--sm" onclick="limpiarFiltros()">
+                        <i class="fas fa-sync-alt me-1"></i> Limpiar
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Tabla -->
-        <div class="card shadow-sm">
-            <div class="table-responsive">
-                <table id="tablaUsuarios" class="table table-hover mb-0">
-                    <thead class="table-light">
+            <!-- Tabla de Usuarios -->
+            <div class="table-container">
+                <table class="data-table" id="tablaUsuarios">
+                    <thead>
                         <tr>
                             <th>#</th>
                             <th>Usuario</th>
@@ -125,35 +110,42 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr th:each="u, iter : ${usuarios}"
-                            th:attr="data-role=${u.rol.nombreRol},data-area=${u.area.nombreArea},data-active=${u.estadoActivo}">
-                            <td th:text="${iter.index + 1}">1</td>
+                    <tbody id="cuerpoTablaUsuarios">
+                        <tr th:each="usuario, iterStat : ${usuarios}" 
+                            th:data-rol="${usuario.rol.nombreRol}"
+                            th:data-activo="${usuario.estadoActivo}"
+                            th:data-area="${usuario.area.nombreArea}">
+                            <td th:text="${iterStat.index + 1}">1</td>
                             <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center fw-bold"
-                                        style="width:40px;height:40px;"
-                                        th:text="${#strings.substring(u.nombre,0,1) + #strings.substring(u.apellidos,0,1)}">
-                                        CA</div>
-                                    <div>
-                                        <div class="fw-bold" th:text="${u.nombre + ' ' + u.apellidos}"></div><small
-                                            class="text-muted" th:text="'DNI: ' + ${u.numeroDocumento}"></small>
+                                <div class="user-cell">
+                                    <div class="user-avatar" th:text="${#strings.substring(usuario.nombre, 0, 1) + #strings.substring(usuario.apellidos, 0, 1)}">LT</div>
+                                    <div class="user-info">
+                                        <span class="user-name" th:text="${usuario.nombre + ' ' + usuario.apellidos}">Lucero Turpo</span>
+                                        <span class="user-dni" th:text="'DNI: ' + ${usuario.numeroDocumento}">DNI: 60784219</span>
                                     </div>
                                 </div>
                             </td>
-                            <td th:text="${u.numeroDocumento}"></td>
-                            <td th:text="${u.correo}"></td>
-                            <td th:text="${u.celular}"></td>
-                            <td><span class="badge bg-primary" th:text="${u.rol.nombreRol}"></span></td>
-                            <td th:text="${u.area.nombreArea}"></td>
-                            <td><span class="badge" th:classappend="${u.estadoActivo} ? 'bg-success' : 'bg-danger'"
-                                    th:text="${u.estadoActivo ? 'Activo' : 'Inactivo'}"></span></td>
+                            <td th:text="${usuario.numeroDocumento}">60784219</td>
+                            <td th:text="${usuario.correo}">correo@ejemplo.com</td>
+                            <td th:text="${usuario.celular}">950989621</td>
                             <td>
-                                <form th:action="@{/usuarios/{id}/estado(id=${u.idUsuario})}" method="post">
-                                    <button type="submit" class="btn btn-sm"
-                                        th:classappend="${u.estadoActivo} ? 'btn-outline-danger' : 'btn-outline-success'"
-                                        th:title="${u.estadoActivo} ? 'Desactivar usuario' : 'Activar usuario'">
-                                        <i class="fas" th:classappend="${u.estadoActivo} ? 'fa-user-slash' : 'fa-user-check'"></i>
+                                <span class="badge badge--primary" th:text="${usuario.rol.nombreRol}">Ciudadano</span>
+                            </td>
+                            <td th:text="${usuario.area.nombreArea}">Ciudadanía</td>
+                            <td>
+                                <span class="badge" 
+                                      th:classappend="${usuario.estadoActivo} ? 'badge--success' : 'badge--danger'"
+                                      th:text="${usuario.estadoActivo} ? 'ACTIVO' : 'INACTIVO'">ACTIVO</span>
+                            </td>
+                            <td>
+                                <a th:href="@{/usuarios/{id}/editar(id=${usuario.idUsuario})}"
+                                   class="btn-icon" title="Editar usuario">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form th:action="@{/usuarios/{id}/estado(id=${usuario.idUsuario})}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn-icon btn-icon--danger" 
+                                            th:title="${usuario.estadoActivo} ? 'Desactivar (eliminación lógica)' : 'Activar'">
+                                        <i class="fas fa-user-slash"></i>
                                     </button>
                                 </form>
                             </td>
@@ -161,73 +153,158 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
     </main>
 
     <!-- Modal Nuevo Usuario -->
-    <div class="modal fade" id="modalUsuario" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title"><i class="fas fa-user-plus"></i> Nuevo Usuario</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formUsuario" th:action="@{/usuarios}" method="post" data-confirm-password>
-                        <div class="row g-3">
-                            <div class="col-md-6"><label class="form-label">Tipo documento</label><select
-                                    name="tipoDocumento" class="form-select">
-                                    <option>DNI</option>
-                                    <option>CE</option>
-                                </select></div>
-                            <div class="col-md-6"><label class="form-label">Número <span
-                                        class="text-danger">*</span></label><input type="text" name="numeroDocumento"
-                                    class="form-control" required></div>
-                            <div class="col-md-6"><label class="form-label">Nombres <span
-                                        class="text-danger">*</span></label><input type="text" name="nombre"
-                                    class="form-control" required></div>
-                            <div class="col-md-6"><label class="form-label">Apellidos <span
-                                        class="text-danger">*</span></label><input type="text" name="apellidos"
-                                    class="form-control" required></div>
-                            <div class="col-md-6"><label class="form-label">Correo <span
-                                        class="text-danger">*</span></label><input type="email" name="correo"
-                                    class="form-control" required></div>
-                            <div class="col-md-6"><label class="form-label">Teléfono <span
-                                        class="text-danger">*</span></label><input type="tel" name="celular"
-                                    class="form-control" required></div>
-                            <div class="col-md-6"><label class="form-label">Rol <span
-                                        class="text-danger">*</span></label><select name="rol.idRol" class="form-select"
-                                    required>
-                                    <option th:each="r : ${roles}" th:value="${r.idRol}" th:text="${r.nombreRol}">
-                                    </option>
-                                </select></div>
-                            <div class="col-md-6"><label class="form-label">Área <span
-                                        class="text-danger">*</span></label><select name="area.idArea" class="form-select"
-                                    required>
-                                    <option th:each="a : ${areas}" th:value="${a.idArea}" th:text="${a.nombreArea}">
-                                    </option>
-                                </select></div>
-                            <div class="col-md-6"><label class="form-label">Contraseña <span
-                                        class="text-danger">*</span></label><input type="password" name="password"
-                                    class="form-control" required></div>
-                            <div class="col-md-6"><label class="form-label">Confirmar <span
-                                        class="text-danger">*</span></label><input type="password"
-                                    name="passwordConfirm" class="form-control"
-                                    required></div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="formUsuario" class="btn btn-danger"><i class="fas fa-save"></i>
-                        Guardar</button>
-                </div>
+    <div class="modal-overlay" id="modalNuevoUsuario" style="display:none;">
+        <div class="modal">
+            <div class="modal__header">
+                <h3 class="modal__title"><i class="fas fa-user-plus me-2"></i>Nuevo Usuario</h3>
+                <button class="modal__close" onclick="cerrarModal()">&times;</button>
             </div>
+            <form th:action="@{/usuarios}" method="post">
+                <div class="modal__body">
+                    <div class="form-row">
+                        <div class="form-group form-group--sm">
+                            <label class="form-label">Tipo documento</label>
+                            <select name="tipoDocumento" class="form-select" required>
+                                <option value="DNI">DNI</option>
+                                <option value="CE">Carné de extranjería</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group--sm">
+                            <label class="form-label">Número *</label>
+                            <input type="text" name="numeroDocumento" class="form-input" required maxlength="30">
+                        </div>
+                        <div class="form-group form-group--lg">
+                            <label class="form-label">Nombres *</label>
+                            <input type="text" name="nombre" class="form-input" required maxlength="100">
+                        </div>
+                        <div class="form-group form-group--lg">
+                            <label class="form-label">Apellidos *</label>
+                            <input type="text" name="apellidos" class="form-input" required maxlength="150">
+                        </div>
+                        <div class="form-group form-group--lg">
+                            <label class="form-label">Correo *</label>
+                            <input type="email" name="correo" class="form-input" required maxlength="150">
+                        </div>
+                        <div class="form-group form-group--sm">
+                            <label class="form-label">Teléfono *</label>
+                            <input type="tel" name="celular" class="form-input" required maxlength="20">
+                        </div>
+                        <div class="form-group form-group--sm">
+                            <label class="form-label">Rol *</label>
+                            <select name="rol.idRol" class="form-select" required>
+                                <option value="">Selecciona</option>
+                                <option th:each="rol : ${roles}" th:value="${rol.idRol}" th:text="${rol.nombreRol}">Rol</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group--sm">
+                            <label class="form-label">Área *</label>
+                            <select name="area.idArea" class="form-select" required>
+                                <option value="">Selecciona</option>
+                                <option th:each="area : ${areas}" th:value="${area.idArea}" th:text="${area.nombreArea}">Área</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group--sm">
+                            <label class="form-label">Contraseña *</label>
+                            <input type="password" name="password" class="form-input" required minlength="8">
+                        </div>
+                        <div class="form-group form-group--sm">
+                            <label class="form-label">Confirmar *</label>
+                            <input type="password" name="passwordConfirm" class="form-input" required minlength="8">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal__footer">
+                    <button type="button" class="btn btn--secondary" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn btn--primary">
+                        <i class="fas fa-save me-1"></i> Guardar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
     <footer th:replace="~{fragments/layout :: footer}"></footer>
     <div th:replace="~{fragments/layout :: scripts}"></div>
-</body>
 
+    <!-- Script de Filtrado Inline -->
+    <script>
+        // Funciones de filtrado
+        function filtrarUsuarios() {
+            const texto = document.getElementById('buscarUsuario').value.toLowerCase();
+            const rol = document.getElementById('filtroRol').value;
+            const estado = document.getElementById('filtroEstado').value;
+            const area = document.getElementById('filtroArea').value;
+            
+            const filas = document.querySelectorAll('#cuerpoTablaUsuarios tr');
+            
+            filas.forEach(fila => {
+                const textoFila = fila.textContent.toLowerCase();
+                const rolFila = fila.getAttribute('data-rol') || '';
+                const activoFila = fila.getAttribute('data-activo') || '';
+                const areaFila = fila.getAttribute('data-area') || '';
+                
+                const coincideTexto = texto === '' || textoFila.includes(texto);
+                const coincideRol = rol === '' || rolFila === rol;
+                const coincideEstado = estado === '' || activoFila === estado;
+                const coincideArea = area === '' || areaFila === area;
+                
+                if (coincideTexto && coincideRol && coincideEstado && coincideArea) {
+                    fila.style.display = '';
+                } else {
+                    fila.style.display = 'none';
+                }
+            });
+        }
+        
+        function limpiarFiltros() {
+            document.getElementById('buscarUsuario').value = '';
+            document.getElementById('filtroRol').value = '';
+            document.getElementById('filtroEstado').value = '';
+            document.getElementById('filtroArea').value = '';
+            filtrarUsuarios();
+        }
+        
+        function exportarTabla() {
+            const tabla = document.getElementById('tablaUsuarios');
+            let csv = [];
+            const filas = tabla.querySelectorAll('tr');
+            
+            filas.forEach(fila => {
+                if (fila.style.display !== 'none') {
+                    const cols = fila.querySelectorAll('td, th');
+                    const rowData = [];
+                    cols.forEach(col => rowData.push(col.textContent.trim()));
+                    csv.push(rowData.join(','));
+                }
+            });
+            
+            const csvContent = csv.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'usuarios.csv';
+            link.click();
+        }
+        
+        function abrirModal() {
+            document.getElementById('modalNuevoUsuario').style.display = 'flex';
+        }
+        
+        function cerrarModal() {
+            document.getElementById('modalNuevoUsuario').style.display = 'none';
+        }
+        
+        // Event listeners
+        document.getElementById('buscarUsuario').addEventListener('input', filtrarUsuarios);
+        document.getElementById('filtroRol').addEventListener('change', filtrarUsuarios);
+        document.getElementById('filtroEstado').addEventListener('change', filtrarUsuarios);
+        document.getElementById('filtroArea').addEventListener('change', filtrarUsuarios);
+    </script>
+
+</body>
 </html>

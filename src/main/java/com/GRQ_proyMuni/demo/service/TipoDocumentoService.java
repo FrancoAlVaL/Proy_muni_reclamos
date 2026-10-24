@@ -24,4 +24,8 @@ public class TipoDocumentoService {
     public TipoDocumento guardar(TipoDocumento tipoDocumento) {
         return tipoDocumentoRepository.save(tipoDocumento);
     }
+
+    public void eliminar(Integer id) {
+        tipoDocumentoRepository.deleteById(id);
+    }
 }

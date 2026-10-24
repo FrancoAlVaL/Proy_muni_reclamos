@@ -61,6 +61,7 @@ public class CatalogInitializer implements ApplicationRunner {
         ensureState("Pendiente", 1);
         ensureState("En proceso", 2);
         ensureState("Resuelto", 3);
+        ensureState("Anulado", 4);
         ensureType("Solicitud");
         ensureType("Carta");
         ensureRole("Ciudadano");

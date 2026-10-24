@@ -50,6 +50,10 @@
                 <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'bandeja'} ? 'active fw-bold'" th:href="@{/reclamos/bandeja}">Bandeja</a></li>
                 <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'estadisticas'} ? 'active fw-bold'" th:href="@{/admin/estadisticas}">Estadísticas</a></li>
                 <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'usuarios'} ? 'active fw-bold'" th:href="@{/usuarios/lista}">Usuarios</a></li>
+                
+                <!-- ENLACE A CATÁLOGOS -->
+                <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'catalogos'} ? 'active fw-bold'" th:href="@{/admin/catalogos}">Catálogos</a></li>
+                
                 <li class="nav-item"><a class="nav-link btn btn-light text-danger ms-2" th:href="@{/logout}">Salir</a></li>
             </ul>
         </div>

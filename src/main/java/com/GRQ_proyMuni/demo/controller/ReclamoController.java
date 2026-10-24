@@ -7,9 +7,11 @@ import com.GRQ_proyMuni.demo.entity.Respuesta;
 import com.GRQ_proyMuni.demo.entity.Usuario;
 import com.GRQ_proyMuni.demo.web.ReclamoForm;
 import com.GRQ_proyMuni.demo.service.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
@@ -55,7 +58,14 @@ public class ReclamoController {
     // Guardar el reclamo enviado desde el formulario
     @PostMapping("/guardar")
     @Transactional
-    public String guardarReclamo(@ModelAttribute ReclamoForm form, Model model, HttpSession session) {
+    public String guardarReclamo(@Valid @ModelAttribute ReclamoForm form,
+                                 BindingResult bindingResult,
+                                 Model model,
+                                 HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return mostrarFormularioConError(model, form,
+                    "Revisa los datos ingresados y corrige los campos inválidos.");
+        }
         if (esVacio(form.getNumeroDocumento()) || esVacio(form.getNombre()) || esVacio(form.getApellidos())
                 || esVacio(form.getCelular()) || esVacio(form.getCorreo()) || form.getFechaDocumento() == null
                 || form.getFechaDocumento().isAfter(java.time.LocalDate.now())
@@ -182,13 +192,35 @@ public class ReclamoController {
         var reclamos = reclamoService.listarTodos();
         model.addAttribute("reclamos", reclamos);
         model.addAttribute("estados", estadoService.listarTodos());
-        model.addAttribute("pendientes", reclamos.stream().filter(r -> "Pendiente".equalsIgnoreCase(r.getEstado().getNombreEstado())).count());
-        model.addAttribute("enProceso", reclamos.stream().filter(r -> "En proceso".equalsIgnoreCase(r.getEstado().getNombreEstado())).count());
-        model.addAttribute("resueltos", reclamos.stream().filter(r -> "Resuelto".equalsIgnoreCase(r.getEstado().getNombreEstado())).count());
-        model.addAttribute("vencidos", reclamos.stream().filter(r -> r.getFechaVencimiento() != null
+        var activos = reclamos.stream()
+                .filter(r -> !"Anulado".equalsIgnoreCase(r.getEstado().getNombreEstado())).toList();
+        model.addAttribute("pendientes", activos.stream().filter(r -> "Pendiente".equalsIgnoreCase(r.getEstado().getNombreEstado())).count());
+        model.addAttribute("enProceso", activos.stream().filter(r -> "En proceso".equalsIgnoreCase(r.getEstado().getNombreEstado())).count());
+        model.addAttribute("resueltos", activos.stream().filter(r -> "Resuelto".equalsIgnoreCase(r.getEstado().getNombreEstado())).count());
+        model.addAttribute("vencidos", activos.stream().filter(r -> r.getFechaVencimiento() != null
                 && r.getFechaVencimiento().isBefore(LocalDateTime.now())
                 && !"Resuelto".equalsIgnoreCase(r.getEstado().getNombreEstado())).count());
         return "bandeja";
+    }
+
+    @PostMapping("/{id}/anular")
+    @Transactional
+    public String anularReclamo(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        Reclamo reclamo = reclamoService.buscarPorId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el reclamo."));
+        Estado anulado = estadoService.listarTodos().stream()
+                .filter(estado -> "Anulado".equalsIgnoreCase(estado.getNombreEstado()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("No existe el estado Anulado."));
+        if ("Anulado".equalsIgnoreCase(reclamo.getEstado().getNombreEstado())) {
+            redirectAttributes.addFlashAttribute("mensaje", "El reclamo ya estaba anulado.");
+            return "redirect:/reclamos/bandeja";
+        }
+        reclamo.setEstado(anulado);
+        reclamoService.guardar(reclamo);
+        redirectAttributes.addFlashAttribute("mensaje",
+                "Reclamo anulado. El expediente y sus respuestas se conservaron.");
+        return "redirect:/reclamos/bandeja";
     }
 
     // Pantalla de atención para el personal
@@ -197,6 +229,9 @@ public class ReclamoController {
         Reclamo reclamo = reclamoService.buscarPorId(id)
                 .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
                         org.springframework.http.HttpStatus.NOT_FOUND));
+        if ("Anulado".equalsIgnoreCase(reclamo.getEstado().getNombreEstado())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "No se puede atender un reclamo anulado.");
+        }
         model.addAttribute("reclamo", reclamo);
         model.addAttribute("estados", estadoService.listarTodos());
         model.addAttribute("areas", areaService.listarTodos());
@@ -218,6 +253,9 @@ public class ReclamoController {
         }
         Reclamo reclamo = reclamoService.buscarPorId(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el reclamo."));
+        if ("Anulado".equalsIgnoreCase(reclamo.getEstado().getNombreEstado())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "No se puede modificar un reclamo anulado.");
+        }
         reclamo.setEstado(estadoService.buscarPorId(estado)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Selecciona un estado válido.")));
         reclamo.setArea(areaService.buscarPorId(area)

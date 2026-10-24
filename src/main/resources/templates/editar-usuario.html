@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Editar Usuario')}"></head>
+
+<body>
+    <nav th:replace="~{fragments/layout :: nav-admin('usuarios')}"></nav>
+
+    <main class="container my-4" style="max-width:800px;">
+        <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+        <div class="card shadow">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Editar usuario</h4>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/usuarios/{id}/editar(id=${usuario.idUsuario})}" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Tipo de documento</label>
+                            <select name="tipoDocumento" class="form-select" required>
+                                <option value="DNI" th:selected="${usuario.tipoDocumento == 'DNI'}">DNI</option>
+                                <option value="CE" th:selected="${usuario.tipoDocumento == 'CE'}">Carné de extranjería</option>
+                                <option value="N/A" th:selected="${usuario.tipoDocumento == 'N/A'}">No aplica</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Número de documento</label>
+                            <input type="text" name="numeroDocumento" class="form-control" maxlength="30"
+                                   th:value="${usuario.numeroDocumento}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" name="nombre" class="form-control" maxlength="100"
+                                   th:value="${usuario.nombre}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Apellidos</label>
+                            <input type="text" name="apellidos" class="form-control" maxlength="150"
+                                   th:value="${usuario.apellidos}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Correo</label>
+                            <input type="email" name="correo" class="form-control" maxlength="150"
+                                   th:value="${usuario.correo}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" name="celular" class="form-control" maxlength="20"
+                                   th:value="${usuario.celular}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Rol</label>
+                            <select name="rolId" class="form-select" required>
+                                <option th:each="rol : ${roles}" th:value="${rol.idRol}"
+                                        th:text="${rol.nombreRol}" th:selected="${usuario.rol.idRol == rol.idRol}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Área</label>
+                            <select name="areaId" class="form-select" required>
+                                <option th:each="area : ${areas}" th:value="${area.idArea}"
+                                        th:text="${area.nombreArea}" th:selected="${usuario.area.idArea == area.idArea}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+                        <a th:href="@{/usuarios/lista}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-save"></i> Guardar cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+    <div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

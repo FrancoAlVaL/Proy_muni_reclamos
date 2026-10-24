@@ -5,77 +5,79 @@
 
 <body>
 
+    <!-- Navbar Admin -->
     <nav th:replace="~{fragments/layout :: nav-admin('bandeja')}"></nav>
 
-    <main class="container my-4">
-        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4" data-filter-scope>
-            <h2 class="fw-bold">Bandeja de Reclamos</h2>
-            <div class="d-flex gap-2">
-                <input type="search" class="form-control" placeholder="Buscar expediente..." data-text-filter
-                    data-filter-table="#tablaReclamos">
-                <select class="form-select" style="width:auto;" data-status-filter data-filter-table="#tablaReclamos">
-                    <option value="">Todos los estados</option>
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="En proceso">En proceso</option>
-                    <option value="Resuelto">Resuelto</option>
-                </select>
+    <main class="main">
+        <div class="container">
+            
+            <!-- Encabezado -->
+            <div class="page-header">
+                <h1 class="page-title">Bandeja de Reclamos</h1>
+                <div class="page-actions">
+                    <a th:href="@{/admin/estadisticas}" class="btn btn--outline-red">
+                        <i class="fas fa-chart-bar me-1"></i> Estadísticas
+                    </a>
+                </div>
+                <div th:if="${mensaje}" class="alert alert-success" role="alert" th:text="${mensaje}"></div>
             </div>
-        </div>
 
-        <!-- Stats -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-warning border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-warning text-white rounded p-3"><i class="fas fa-clock fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${pendientes}">24</div><small
-                                class="text-muted">Pendientes</small>
-                        </div>
+            <!-- Tarjetas de Resumen -->
+            <div class="stats-grid stats-grid--4">
+                <div class="stat-card stat-card--users" style="border-left-color: #E38F03;">
+                    <div class="stat-icon stat-icon--warning"><i class="fas fa-clock"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${pendientes}">0</span>
+                        <span class="stat-label">Pendientes</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #0d6efd;">
+                    <div class="stat-icon stat-icon--info"><i class="fas fa-spinner fa-spin"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${enProceso}">0</span>
+                        <span class="stat-label">En proceso</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #198754;">
+                    <div class="stat-icon stat-icon--success"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${resueltos}">0</span>
+                        <span class="stat-label">Resueltos</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #dc3545;">
+                    <div class="stat-icon stat-icon--danger"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${vencidos}">0</span>
+                        <span class="stat-label">Vencidos</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-info border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-info text-white rounded p-3"><i class="fas fa-spinner fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${enProceso}">15</div><small class="text-muted">En
-                                proceso</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-success border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-success text-white rounded p-3"><i class="fas fa-check-circle fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${resueltos}">156</div><small
-                                class="text-muted">Resueltos</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-danger border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-danger text-white rounded p-3"><i class="fas fa-exclamation-triangle fa-lg"></i>
-                        </div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${vencidos}">3</div><small
-                                class="text-muted">Vencidos</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Tabla -->
-        <div class="card shadow-sm">
-            <div class="table-responsive">
-                <table id="tablaReclamos" class="table table-hover mb-0">
-                    <thead class="table-light">
+            <!-- Barra de Filtros -->
+            <div class="filters-bar" data-filter-scope>
+                <div class="filters-bar__search">
+                    <i class="fas fa-search"></i>
+                    <!-- ✅ SE AGREGÓ data-filter-table="#tablaBandeja" -->
+                    <input type="text" class="form-input" placeholder="Buscar por expediente, ciudadano o asunto..." 
+                           data-filter-table="#tablaBandeja" data-text-filter>
+                </div>
+                <div class="filters-bar__group">
+                    <!-- ✅ SE AGREGÓ data-filter-table="#tablaBandeja" -->
+                    <select class="form-select" data-filter-table="#tablaBandeja" data-status-filter>
+                        <option value="">Todos los estados</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en proceso">En proceso</option>
+                        <option value="resuelto">Resuelto</option>
+                        <option value="anulado">Anulado</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tabla de Reclamos -->
+            <div class="table-container">
+                <table class="data-table" id="tablaBandeja">
+                    <thead>
                         <tr>
                             <th>N° Expediente</th>
                             <th>Fecha</th>
@@ -88,36 +90,91 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="r : ${reclamos}" th:class="${r.prioridad == 'ALTA'} ? 'table-danger'"
-                            th:attr="data-status=${r.estado.nombreEstado}">
-                            <td><strong th:text="${r.codigoSeguimiento}">EXP-001</strong></td>
-                            <td th:text="${#temporals.format(r.fechaRegistro, 'dd/MM/yyyy')}"></td>
-                            <td th:text="${r.usuario.nombre + ' ' + r.usuario.apellidos}"></td>
-                            <td th:text="${r.asunto}"></td>
-                            <td th:text="${r.categoria.nombreCategoria}"></td>
+                        <tr th:each="reclamo : ${reclamos}" 
+                            th:data-status="${reclamo.estado.nombreEstado?.toLowerCase()}"
+                            th:classappend="${reclamo.prioridad == 'ALTA'} ? 'row--urgent'">
                             <td>
-                                <span class="badge"
-                                    th:classappend="${r.estado.nombreEstado == 'Pendiente'} ? 'bg-warning text-dark' : (${r.estado.nombreEstado == 'Resuelto'} ? 'bg-success' : 'bg-info')"
-                                    th:text="${r.estado.nombreEstado}"></span>
+                                <strong th:text="${reclamo.codigoSeguimiento}">EXP-2026-001</strong>
                             </td>
-                            <td><span class="badge"
-                                    th:classappend="${r.prioridad == 'ALTA'} ? 'bg-danger' : (${r.prioridad == 'MEDIA'} ? 'bg-warning text-dark' : 'bg-secondary')"
-                                    th:text="${r.prioridad}"></span></td>
+                            <td th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy')}">29/09/2026</td>
+                            <td th:text="${reclamo.usuario.nombre + ' ' + reclamo.usuario.apellidos}">Lucero Turpo</td>
+                            <td th:text="${reclamo.asunto}">Solicitud de licencia</td>
+                            <td th:text="${reclamo.categoria.nombreCategoria}">Reclamo</td>
                             <td>
-                                <a th:href="@{/reclamos/atencion/{id}(id=${r.idReclamo})}"
-                                    class="btn btn-sm btn-outline-primary">
+                                <span class="badge" 
+                                      th:classappend="${reclamo.estado.nombreEstado == 'Anulado'} ? 'badge--secondary' : (${reclamo.estado.nombreEstado == 'Resuelto'} ? 'badge--success' : (${reclamo.estado.nombreEstado == 'En proceso'} ? 'badge--primary' : 'badge--warning'))"
+                                      th:text="${reclamo.estado.nombreEstado}">Pendiente</span>
+                            </td>
+                            <td>
+                                <span class="badge" 
+                                      th:classappend="${reclamo.prioridad == 'ALTA'} ? 'badge--danger' : (${reclamo.prioridad == 'BAJA'} ? 'badge--secondary' : 'badge--warning')"
+                                      th:text="${reclamo.prioridad}">MEDIA</span>
+                            </td>
+                            <td>
+                                <a th:if="${reclamo.estado.nombreEstado != 'Anulado'}"
+                                   th:href="@{/reclamos/atencion/{id}(id=${reclamo.idReclamo})}" 
+                                   class="btn-icon" title="Atender">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                <form th:if="${reclamo.estado.nombreEstado != 'Anulado'}"
+                                      th:action="@{/reclamos/{id}/anular(id=${reclamo.idReclamo})}"
+                                      method="post" style="display:inline;"
+                                      onsubmit="return confirm('¿Anular este reclamo? Se conservarán el expediente y sus respuestas.');">
+                                    <button type="submit" class="btn-icon btn-icon--danger" title="Anular reclamo">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(reclamos)}">
+                            <td colspan="8" class="text-center text-muted py-4">
+                                No hay reclamos en la bandeja.
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
         </div>
     </main>
 
     <footer th:replace="~{fragments/layout :: footer}"></footer>
     <div th:replace="~{fragments/layout :: scripts}"></div>
-</body>
 
+    <!-- SCRIPT INLINE DE RESPALDO PARA GARANTIZAR EL FILTRADO -->
+    <script>
+        function filtrarBandeja() {
+            const texto = document.querySelector('[data-text-filter]')?.value.toLowerCase() || '';
+            const estado = document.querySelector('[data-status-filter]')?.value.toLowerCase() || '';
+            
+            const filas = document.querySelectorAll('#tablaBandeja tbody tr');
+            
+            filas.forEach(fila => {
+                // Ignorar la fila de mensaje "No hay reclamos"
+                if (fila.querySelector('td[colspan]')) return;
+                
+                const textoFila = fila.textContent.toLowerCase();
+                const estadoFila = fila.getAttribute('data-status') || '';
+                
+                const coincideTexto = texto === '' || textoFila.includes(texto);
+                const coincideEstado = estado === '' || estadoFila === estado;
+                
+                if (coincideTexto && coincideEstado) {
+                    fila.style.display = '';
+                } else {
+                    fila.style.display = 'none';
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputTexto = document.querySelector('[data-text-filter]');
+            const selectEstado = document.querySelector('[data-status-filter]');
+            
+            if (inputTexto) inputTexto.addEventListener('input', filtrarBandeja);
+            if (selectEstado) selectEstado.addEventListener('change', filtrarBandeja);
+        });
+    </script>
+
+</body>
 </html>

@@ -5,28 +5,32 @@
 
 <body>
 
+    <!-- Navbar Ciudadano -->
     <nav th:replace="~{fragments/layout :: nav-ciudadano('mis')}"></nav>
 
-    <main class="container my-4">
-        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4" data-filter-scope>
-            <h2 class="fw-bold">Mis Reclamos</h2>
-            <div class="d-flex gap-2">
-                <input type="search" class="form-control" placeholder="Buscar..." data-text-filter
-                    data-filter-table="#tablaMisReclamos">
-                <select class="form-select" style="width:auto;" data-status-filter
-                    data-filter-table="#tablaMisReclamos">
-                    <option value="">Todos los estados</option>
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="En proceso">En proceso</option>
-                    <option value="Resuelto">Resuelto</option>
-                </select>
+    <main class="main">
+        <div class="container">
+            <!-- Encabezado -->
+            <div class="page-header">
+                <h1 class="page-title">Mis Reclamos</h1>
+                <div class="page-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="form-input" placeholder="Buscar..." data-filter-table="#tablaMisReclamos">
+                    </div>
+                    <select class="form-select" data-status-filter>
+                        <option value="">Todos los estados</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en proceso">En proceso</option>
+                        <option value="resuelto">Resuelto</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="card shadow-sm">
-            <div class="table-responsive">
-                <table id="tablaMisReclamos" class="table table-hover mb-0">
-                    <thead class="table-light">
+            <!-- Tabla de Reclamos -->
+            <div class="table-container" data-filter-scope>
+                <table class="data-table" id="tablaMisReclamos">
+                    <thead>
                         <tr>
                             <th>N° Expediente</th>
                             <th>Fecha</th>
@@ -37,20 +41,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="r : ${reclamos}" th:attr="data-status=${r.estado.nombreEstado}">
-                            <td><strong th:text="${r.codigoSeguimiento}">EXP-001</strong></td>
-                            <td th:text="${#temporals.format(r.fechaRegistro, 'dd/MM/yyyy')}">15/01/2026</td>
-                            <td th:text="${r.asunto}">Asunto</td>
-                            <td th:text="${r.categoria.nombreCategoria}">RECLAMO</td>
+                        <tr th:each="reclamo : ${reclamos}" 
+                            th:data-status="${reclamo.estado.nombreEstado?.toLowerCase()}">
                             <td>
-                                <span class="badge"
-                                    th:classappend="${r.estado.nombreEstado == 'Pendiente'} ? 'bg-warning text-dark' : (${r.estado.nombreEstado == 'Resuelto'} ? 'bg-success' : 'bg-info')"
-                                    th:text="${r.estado.nombreEstado}">Pendiente</span>
+                                <strong th:text="${reclamo.codigoSeguimiento}">EXP-2026-001</strong>
+                            </td>
+                            <td th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy')}">29/09/2026</td>
+                            <td th:text="${reclamo.asunto}">Solicitud de licencia</td>
+                            <td th:text="${reclamo.categoria.nombreCategoria}">Reclamo</td>
+                            <td>
+                                <span class="badge badge--warning" 
+                                      th:classappend="${reclamo.estado.nombreEstado == 'Resuelto'} ? 'badge--success' : (${reclamo.estado.nombreEstado == 'En proceso'} ? 'badge--primary' : 'badge--warning')"
+                                      th:text="${reclamo.estado.nombreEstado}">Pendiente</span>
                             </td>
                             <td>
-                                <a th:href="@{/detalle/{id}(id=${r.idReclamo})}" class="btn btn-sm btn-outline-primary">
+                                <a th:href="@{/reclamos/detalle/{id}(id=${reclamo.idReclamo})}" 
+                                   class="btn-icon" title="Ver detalle">
                                     <i class="fas fa-eye"></i>
                                 </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(reclamos)}">
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No tienes reclamos registrados.
                             </td>
                         </tr>
                     </tbody>
@@ -61,6 +74,6 @@
 
     <footer th:replace="~{fragments/layout :: footer}"></footer>
     <div th:replace="~{fragments/layout :: scripts}"></div>
-</body>
 
+</body>
 </html>

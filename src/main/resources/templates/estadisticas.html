@@ -5,105 +5,198 @@
 
 <body>
 
+    <!-- Navbar Admin -->
     <nav th:replace="~{fragments/layout :: nav-admin('estadisticas')}"></nav>
 
-    <main class="container my-4">
-        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
-            <h2 class="fw-bold">Panel de Estadísticas</h2>
-            <div class="d-flex gap-2">
-                <select class="form-select" style="width:auto;">
-                    <option>2026</option>
-                    <option>2025</option>
-                </select>
-                <button type="button" class="btn btn-danger" data-export-table="#tablaEstadisticas">
-                    <i class="fas fa-download"></i> Exportar
-                </button>
+    <main class="main">
+        <div class="container">
+            
+            <!-- Encabezado -->
+            <div class="page-header">
+                <h1 class="page-title">Panel de Estadísticas</h1>
+                <div class="page-actions">
+                    <select id="añoSeleccionado" class="form-select" onchange="cargarEstadisticas()">
+                        <option value="2025" th:selected="${año == 2025}">2025</option>
+                        <option value="2026" th:selected="${año == 2026}">2026</option>
+                        <option value="2027" th:selected="${año == 2027}">2027</option>
+                    </select>
+                    <button class="btn btn--primary" onclick="exportarEstadisticas()">
+                        <i class="fas fa-download me-1"></i> Exportar
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <div class="row g-3 mb-4">
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-danger border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-danger text-white rounded p-3"><i class="fas fa-file-alt fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${totalReclamos}">1,245</div><small class="text-muted">Total
-                                Reclamos</small>
-                        </div>
+            <!-- Tarjetas de Resumen -->
+            <div class="stats-grid stats-grid--4">
+                <div class="stat-card stat-card--users">
+                    <div class="stat-icon stat-icon--primary"><i class="fas fa-file-alt"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="totalReclamos" th:text="${totalReclamos}">0</span>
+                        <span class="stat-label">Total Reclamos</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #198754;">
+                    <div class="stat-icon stat-icon--success"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="resueltos" th:text="${resueltos}">0</span>
+                        <span class="stat-label">Resueltos</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #E38F03;">
+                    <div class="stat-icon stat-icon--warning"><i class="fas fa-clock"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="pendientes" th:text="${pendientes}">0</span>
+                        <span class="stat-label">Pendientes</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #0d6efd;">
+                    <div class="stat-icon stat-icon--info"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="promedio" th:text="${promedio}">0.0</span>
+                        <span class="stat-label">Días promedio</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-success border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-success text-white rounded p-3"><i class="fas fa-check-circle fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${resueltos}">987</div><small
-                                class="text-muted">Resueltos</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-warning border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-warning text-white rounded p-3"><i class="fas fa-clock fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${pendientes}">156</div><small
-                                class="text-muted">Pendientes</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm border-start border-info border-4">
-                    <div class="card-body d-flex align-items-center gap-3">
-                        <div class="bg-info text-white rounded p-3"><i class="fas fa-hourglass-half fa-lg"></i></div>
-                        <div>
-                            <div class="fs-3 fw-bold" th:text="${promedio}">3.2</div><small class="text-muted">Días
-                                promedio</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="row g-4" id="tablaEstadisticas">
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-body"><canvas id="chartMeses"></canvas></div>
+            <!-- Gráficos -->
+            <div class="charts-grid">
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">Reclamos por Mes</h3>
+                    </div>
+                    <div class="card__body">
+                        <canvas id="chartMeses"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">Reclamos por Tipo</h3>
+                    </div>
+                    <div class="card__body">
+                        <canvas id="chartTipos"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">Reclamos por Estado</h3>
+                    </div>
+                    <div class="card__body">
+                        <canvas id="chartEstados"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">Reclamos por Área</h3>
+                    </div>
+                    <div class="card__body">
+                        <canvas id="chartAreas"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-body"><canvas id="chartTipos"></canvas></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-body"><canvas id="chartEstados"></canvas></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-body"><canvas id="chartAreas"></canvas></div>
-                </div>
-            </div>
+
         </div>
     </main>
 
     <footer th:replace="~{fragments/layout :: footer}"></footer>
     <div th:replace="~{fragments/layout :: scripts}"></div>
 
-    <script th:inline="javascript">
-        window.reclamosStats = {
-            meses: /*[[${datosMeses}]]*/ {},
-            tipos: /*[[${datosTipos}]]*/ {},
-            estados: /*[[${datosEstados}]]*/ {},
-            areas: /*[[${datosAreas}]]*/ {}
-        };
+    <!-- Script para estadísticas dinámicas -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let charts = {};
+        
+        function cargarEstadisticas() {
+            const año = document.getElementById('añoSeleccionado').value;
+            
+            fetch('/admin/estadisticas/json?año=' + año)
+                .then(response => response.json())
+                .then(data => {
+                    // Actualizar tarjetas
+                    document.getElementById('totalReclamos').textContent = data.totalReclamos;
+                    document.getElementById('resueltos').textContent = data.resueltos;
+                    document.getElementById('pendientes').textContent = data.pendientes;
+                    document.getElementById('promedio').textContent = data.promedio;
+                    
+                    // Actualizar gráficos
+                    actualizarGraficos(data);
+                })
+                .catch(error => {
+                    console.error('Error al cargar estadísticas:', error);
+                    alert('Error al cargar las estadísticas');
+                });
+        }
+        
+        function actualizarGraficos(data) {
+            // Gráfico de meses
+            if (charts.meses) charts.meses.destroy();
+            charts.meses = new Chart(document.getElementById('chartMeses'), {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                    datasets: [{
+                        label: 'Reclamos',
+                        data: data.meses,
+                        borderColor: '#C8102E',
+                        backgroundColor: 'rgba(200,16,46,0.1)',
+                        fill: true
+                    }]
+                },
+                options: { responsive: true }
+            });
+            
+            // Gráfico de tipos
+            if (charts.tipos) charts.tipos.destroy();
+            charts.tipos = new Chart(document.getElementById('chartTipos'), {
+                type: 'doughnut',
+                data: {
+                    labels: data.tiposLabels,
+                    datasets: [{
+                        data: data.tiposData,
+                        backgroundColor: ['#C8102E', '#E38F03', '#198754', '#0d6efd', '#6f42c1']
+                    }]
+                },
+                options: { responsive: true }
+            });
+            
+            // Gráfico de estados
+            if (charts.estados) charts.estados.destroy();
+            charts.estados = new Chart(document.getElementById('chartEstados'), {
+                type: 'bar',
+                data: {
+                    labels: data.estadosLabels,
+                    datasets: [{
+                        label: 'Cantidad',
+                        data: data.estadosData,
+                        backgroundColor: ['#E38F03', '#0d6efd', '#198754', '#dc3545']
+                    }]
+                },
+                options: { responsive: true }
+            });
+            
+            // Gráfico de áreas
+            if (charts.areas) charts.areas.destroy();
+            charts.areas = new Chart(document.getElementById('chartAreas'), {
+                type: 'bar',
+                data: {
+                    labels: data.areasLabels,
+                    datasets: [{
+                        label: 'Reclamos',
+                        data: data.areasData,
+                        backgroundColor: '#C8102E'
+                    }]
+                },
+                options: { responsive: true, indexAxis: 'y' }
+            });
+        }
+        
+        function exportarEstadisticas() {
+            const año = document.getElementById('añoSeleccionado').value;
+            window.location.href = '/admin/estadisticas/exportar?año=' + año;
+        }
+        
+        // Cargar al iniciar
+        document.addEventListener('DOMContentLoaded', cargarEstadisticas);
     </script>
-    <script th:src="@{/js/estadisticas.js}" defer></script>
-</body>
 
+</body>
 </html>

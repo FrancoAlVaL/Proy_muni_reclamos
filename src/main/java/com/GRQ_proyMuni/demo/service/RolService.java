@@ -24,4 +24,8 @@ public class RolService {
     public Rol guardar(Rol rol) {
         return rolRepository.save(rol);
     }
+
+    public void eliminar(Integer id) {
+        rolRepository.deleteById(id);
+    }
 }
