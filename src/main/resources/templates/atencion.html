@@ -5,90 +5,246 @@
 
 <body>
 
+    <!-- Navbar Admin -->
     <nav th:replace="~{fragments/layout :: nav-admin('bandeja')}"></nav>
 
-    <main class="container my-4">
-        <nav aria-label="breadcrumb" class="mb-3">
-            <a th:href="@{/reclamos/bandeja}" class="text-danger"><i class="fas fa-arrow-left"></i> Volver a bandeja</a>
-        </nav>
+    <main class="main">
+        <div class="container">
 
-        <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap">
-            <div>
-                <h2 class="fw-bold">Atención de Reclamo N° <span th:text="${reclamo.codigoSeguimiento}"></span></h2>
-                <p class="text-muted small">Registrado el <span
-                        th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy')}"></span> por <span
-                        th:text="${reclamo.usuario.nombre}"></span></p>
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a th:href="@{/reclamos/bandeja}"><i class="fas fa-arrow-left me-1"></i> Volver a la bandeja</a>
             </div>
-            <span class="badge fs-6 px-3 py-2 bg-warning text-dark"
-                th:text="${reclamo.estado.nombreEstado}">Pendiente</span>
-        </div>
 
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card shadow-sm h-100">
-                    <div class="card-header bg-danger text-white">
-                        <h5 class="mb-0">Información del Reclamo</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Tipo:</strong> <span th:text="${reclamo.categoria.nombreCategoria}"></span></p>
-                        <p><strong>Asunto:</strong> <span th:text="${reclamo.asunto}"></span></p>
-                        <p><strong>Descripción:</strong> <span th:text="${reclamo.descripcion}"></span></p>
-                    </div>
+            <!-- Encabezado -->
+            <div class="detail-header">
+                <div>
+                    <h1 class="page-title mb-1">
+                        Atender reclamo - <span th:text="${reclamo.codigoSeguimiento}">EXP-2026-XXXX</span>
+                    </h1>
+                    <p class="text-muted small">
+                        <span th:text="${reclamo.usuario.nombre + ' ' + reclamo.usuario.apellidos}">Usuario</span>
+                        - DNI <span th:text="${reclamo.usuario.numeroDocumento}">12345678</span>
+                    </p>
+                </div>
+                <div class="d-flex gap-2">
+                    <span class="badge badge--primary" th:text="${reclamo.estado.nombreEstado}">En proceso</span>
+                    <span class="badge badge--warning" th:text="'Prioridad ' + ${reclamo.prioridad}">Prioridad
+                        MEDIA</span>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card shadow-sm h-100">
-                    <div class="card-header bg-danger text-white">
-                        <h5 class="mb-0">Registrar Atención</h5>
+
+            <div class="row g-4">
+                <!-- COLUMNA IZQUIERDA -->
+                <div class="col-lg-6">
+
+                    <!-- Resumen del Caso -->
+                    <div class="card mb-4">
+                        <div class="card__header">
+                            <h3 class="card__title"><i class="fas fa-file-alt me-2"></i>Resumen del caso</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="detail-row">
+                                <span class="detail-label">Asunto:</span>
+                                <span class="detail-value" th:text="${reclamo.asunto}">Asunto</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Tipo:</span>
+                                <span class="detail-value" th:text="${reclamo.categoria.nombreCategoria}">Reclamo</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Área asignada:</span>
+                                <span class="detail-value" th:text="${reclamo.area.nombreArea}">Seguridad
+                                    Ciudadana</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Registrado:</span>
+                                <span class="detail-value"
+                                    th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy HH:mm')}">24/10/2026
+                                    10:32</span>
+                            </div>
+                            <div class="detail-row" th:if="${reclamo.fechaVencimiento != null}">
+                                <span class="detail-label">Plazo:</span>
+                                <span class="detail-value">
+                                    <span
+                                        th:text="${reclamo.fechaVencimiento.isBefore(T(java.time.LocalDateTime).now())} ? 'VENCIDO' : ${#temporals.format(reclamo.fechaVencimiento, 'dd/MM/yyyy')} + ' días hábiles'">30
+                                        días hábiles</span>
+                                </span>
+                            </div>
+
+                            <!-- Descripción -->
+                            <div class="mt-3">
+                                <h6 class="fw-bold mb-2"><i class="fas fa-file-alt me-1"></i> Descripción del ciudadano
+                                </h6>
+                                <div class="card bg-light p-3" style="border-left: 3px solid var(--primary);">
+                                    <p class="mb-0 text-justify" th:text="${reclamo.descripcion}">Descripción...</p>
+                                </div>
+                            </div>
+
+                            <!-- Evidencia adjunta -->
+                            <div class="mt-3">
+                                <h6 class="fw-bold mb-2"><i class="fas fa-paperclip me-1"></i> Documentos adjuntos</h6>
+                                <div
+                                    th:if="${reclamo.archivoEvidencia != null and !reclamo.archivoEvidencia.isBlank()}">
+                                    <a th:href="@{/reclamos/reclamos/{id}/evidencia(id=${reclamo.idReclamo})}"
+                                        class="btn btn--sm btn--outline" target="_blank"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-file-pdf text-danger"></i>
+                                        <span>evidencia.pdf</span>
+                                        <i class="fas fa-external-link-alt ms-1 small"></i>
+                                    </a>
+                                </div>
+                                <div th:if="${reclamo.archivoEvidencia == null or reclamo.archivoEvidencia.isBlank()}"
+                                    class="text-muted small">
+                                    <i class="fas fa-info-circle me-1"></i> No hay documentos adjuntos
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <form th:action="@{/reclamos/atencion/{id}(id=${reclamo.idReclamo})}" method="post"
-                            enctype="multipart/form-data">
-                            <div class="mb-3">
-                                <label class="form-label">Estado <span class="text-danger">*</span></label>
-                                <select name="estado" class="form-select" required>
-                                    <option th:each="e : ${estados}" th:value="${e.idEstado}"
-                                        th:text="${e.nombreEstado}"></option>
-                                </select>
+
+                    <!-- Historial de Atención -->
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title"><i class="fas fa-history me-2"></i>Historial de atención</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="timeline">
+                                <!-- Estado inicial -->
+                                <div class="timeline-item timeline-item--active">
+                                    <div class="timeline-icon"><i class="fas fa-paper-plane"></i></div>
+                                    <div class="timeline-content">
+                                        <h4>Sistema</h4>
+                                        <p class="timeline-date"
+                                            th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy - HH:mm')}">
+                                            24/10/2026 - 10:32</p>
+                                        <p>Reclamo registrado y generado número de expediente.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Respuestas del personal -->
+                                <div th:each="respuesta : ${respuestas}" class="timeline-item">
+                                    <div class="timeline-icon"><i class="fas fa-user-tie"></i></div>
+                                    <div class="timeline-content">
+                                        <h4>
+                                            <span th:text="${respuesta.usuario.nombre}">Administrador</span>
+                                            <span class="badge badge--secondary ms-2"
+                                                th:text="${respuesta.estadoRespuesta}">En proceso</span>
+                                        </h4>
+                                        <p class="timeline-date"
+                                            th:text="${#temporals.format(respuesta.fechaRespuesta, 'dd/MM/yyyy - HH:mm')}">
+                                            25/10/2026 - 09:10</p>
+                                        <p th:text="${respuesta.contenido}">Derivado a Seguridad Ciudadana.</p>
+
+                                        <div th:if="${respuesta.archivoAdjunto != null}" class="mt-2">
+                                            <a th:href="@{/respuestas/{id}/archivo(id=${respuesta.idRespuesta})}"
+                                                class="btn btn--sm btn--outline" target="_blank">
+                                                <i class="fas fa-download me-1"></i> Ver adjunto
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Si no hay respuestas -->
+                                <div th:if="${#lists.isEmpty(respuestas)}" class="text-center text-muted py-3">
+                                    <p><i class="fas fa-info-circle me-1"></i> Aún no hay respuestas registradas.</p>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Área responsable <span class="text-danger">*</span></label>
-                                <select name="area" class="form-select" required>
-                                    <option th:each="a : ${areas}" th:value="${a.idArea}" th:text="${a.nombreArea}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Prioridad <span class="text-danger">*</span></label>
-                                <select name="prioridad" class="form-select" required>
-                                    <option value="ALTA">Alta</option>
-                                    <option value="MEDIA">Media</option>
-                                    <option value="BAJA">Baja</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Respuesta / Observaciones <span
-                                        class="text-danger">*</span></label>
-                                <textarea name="observacion" class="form-control" rows="4" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Adjuntar documento</label>
-                                <input type="file" name="archivo" class="form-control" accept=".pdf,.jpg,.png">
-                            </div>
-                            <div class="d-flex justify-content-end gap-2">
-                                <a th:href="@{/reclamos/bandeja}" class="btn btn-secondary">Cancelar</a>
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> Guardar
-                                    Atención</button>
-                            </div>
-                        </form>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- COLUMNA DERECHA - Formulario de Atención -->
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title"><i class="fas fa-edit me-2"></i>Formulario de atención</h3>
+                        </div>
+                        <div class="card__body">
+                            <form th:action="@{/reclamos/atencion/{id}(id=${reclamo.idReclamo})}" method="post"
+                                enctype="multipart/form-data">
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-7">
+                                        <label class="form-label">Actualizar estado <span
+                                                class="text-danger">*</span></label>
+                                        <select name="estado" class="form-select" required>
+                                            <option th:each="e : ${estados}" th:value="${e.idEstado}"
+                                                th:text="${e.nombreEstado}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label">Prioridad <span class="text-danger">*</span></label>
+                                        <select name="prioridad" class="form-select" required>
+                                            <option value="BAJA" th:selected="${reclamo.prioridad == 'BAJA'}">Baja
+                                            </option>
+                                            <option value="MEDIA" th:selected="${reclamo.prioridad == 'MEDIA'}">Media
+                                            </option>
+                                            <option value="ALTA" th:selected="${reclamo.prioridad == 'ALTA'}">Alta
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Área / responsable</label>
+                                    <select name="area" class="form-select" required>
+                                        <option th:each="a : ${areas}" th:value="${a.idArea}" th:text="${a.nombreArea}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Observaciones internas</label>
+                                    <textarea name="observacion" class="form-control" rows="3"
+                                        placeholder="Notas solo visibles para el personal..."></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Respuesta al ciudadano <span
+                                            class="text-danger">*</span></label>
+                                    <textarea name="respuesta" class="form-control" rows="4" required
+                                        placeholder="Redacte la respuesta que recibirá el reclamante..."></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Adjuntar respuesta (PDF)</label>
+                                    <div class="border border-dashed p-3 text-center rounded"
+                                        style="border: 2px dashed var(--gray-300) !important;">
+                                        <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                        <p class="mb-0 small text-muted">Seleccionar archivo o arrastrar aquí</p>
+                                        <input type="file" name="archivo" class="form-control mt-2"
+                                            accept=".pdf,.jpg,.png">
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info mb-3">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    <small>Esta respuesta será visible para el ciudadano en su panel de "Mis
+                                        Reclamos".</small>
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button type="button" class="btn btn--secondary"
+                                        onclick="window.location.href='/reclamos/bandeja'">
+                                        <i class="fas fa-save me-1"></i> Guardar avance
+                                    </button>
+                                    <button type="submit" class="btn btn--primary">
+                                        <i class="fas fa-check-circle me-1"></i> Resolver y notificar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </main>
 
     <footer th:replace="~{fragments/layout :: footer}"></footer>
     <div th:replace="~{fragments/layout :: scripts}"></div>
+
 </body>
 
 </html>

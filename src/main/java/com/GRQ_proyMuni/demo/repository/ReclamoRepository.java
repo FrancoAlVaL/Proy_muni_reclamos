@@ -14,6 +14,14 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer> {
     // Buscar reclamos por su estado actual
     List<Reclamo> findByEstadoIdEstado(Integer idEstado);
 
+    boolean existsByAreaIdArea(Integer idArea);
+
+    boolean existsByCategoriaIdCategoria(Integer idCategoria);
+
+    boolean existsByEstadoIdEstado(Integer idEstado);
+
+    boolean existsByTipoDocumentoIdTipoDocumento(Integer idTipoDocumento);
+
     Optional<Reclamo> findByCodigoSeguimientoAndUsuarioNumeroDocumento(String codigoSeguimiento,
                                                                         String numeroDocumento);
 }

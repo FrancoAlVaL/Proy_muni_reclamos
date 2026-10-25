@@ -10,70 +10,182 @@
 
     <main class="main">
         <div class="container">
-            <!-- Encabezado -->
+
+            <!-- Encabezado con Botón Nuevo Reclamo -->
             <div class="page-header">
-                <h1 class="page-title">Mis Reclamos</h1>
+                <div>
+                    <h1 class="page-title">Mis Reclamos</h1>
+                    <p class="page-subtitle">Consulte el estado y el historial de todos sus documentos presentados.</p>
+                </div>
                 <div class="page-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" class="form-input" placeholder="Buscar..." data-filter-table="#tablaMisReclamos">
-                    </div>
-                    <select class="form-select" data-status-filter>
-                        <option value="">Todos los estados</option>
-                        <option value="pendiente">Pendiente</option>
-                        <option value="en proceso">En proceso</option>
-                        <option value="resuelto">Resuelto</option>
-                    </select>
+                    <a th:href="@{/reclamos/nuevo}" class="btn btn--primary">
+                        <i class="fas fa-plus me-1"></i> Nuevo reclamo
+                    </a>
                 </div>
             </div>
 
-            <!-- Tabla de Reclamos -->
-            <div class="table-container" data-filter-scope>
-                <table class="data-table" id="tablaMisReclamos">
-                    <thead>
-                        <tr>
-                            <th>N° Expediente</th>
-                            <th>Fecha</th>
-                            <th>Asunto</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="reclamo : ${reclamos}" 
-                            th:data-status="${reclamo.estado.nombreEstado?.toLowerCase()}">
-                            <td>
-                                <strong th:text="${reclamo.codigoSeguimiento}">EXP-2026-001</strong>
-                            </td>
-                            <td th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy')}">29/09/2026</td>
-                            <td th:text="${reclamo.asunto}">Solicitud de licencia</td>
-                            <td th:text="${reclamo.categoria.nombreCategoria}">Reclamo</td>
-                            <td>
-                                <span class="badge badge--warning" 
-                                      th:classappend="${reclamo.estado.nombreEstado == 'Resuelto'} ? 'badge--success' : (${reclamo.estado.nombreEstado == 'En proceso'} ? 'badge--primary' : 'badge--warning')"
-                                      th:text="${reclamo.estado.nombreEstado}">Pendiente</span>
-                            </td>
-                            <td>
-                                <a th:href="@{/reclamos/detalle/{id}(id=${reclamo.idReclamo})}" 
-                                   class="btn-icon" title="Ver detalle">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr th:if="${#lists.isEmpty(reclamos)}">
-                            <td colspan="6" class="text-center text-muted py-4">
-                                No tienes reclamos registrados.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Tarjetas de Estadísticas -->
+            <div class="stats-grid stats-grid--4">
+                <div class="stat-card stat-card--users">
+                    <div class="stat-icon stat-icon--primary"><i class="fas fa-folder"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${totalReclamos}">0</span>
+                        <span class="stat-label">Total presentados</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #E38F03;">
+                    <div class="stat-icon stat-icon--warning"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${pendientes}">0</span>
+                        <span class="stat-label">Pendientes</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #0d6efd;">
+                    <div class="stat-icon stat-icon--info"><i class="fas fa-sync-alt"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${enProceso}">0</span>
+                        <span class="stat-label">En proceso</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--users" style="border-left-color: #198754;">
+                    <div class="stat-icon stat-icon--success"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-number" th:text="${resueltos}">0</span>
+                        <span class="stat-label">Resueltos</span>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <!-- Historial de Reclamos con Filtros -->
+            <div class="card">
+                <div class="card__header">
+                    <h3 class="card__title"><i class="fas fa-clipboard-list me-2"></i>Historial de reclamos</h3>
+                </div>
+                <div class="card__body">
+
+                    <!-- Filtros: Estado y Fecha Desde -->
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Estado</label>
+                            <select id="filtroEstado" class="form-select" onchange="filtrarReclamos()">
+                                <option value="">Todos los estados</option>
+                                <option th:each="estado : ${estados}" th:value="${estado.nombreEstado}"
+                                    th:text="${estado.nombreEstado}">Estado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Fecha desde</label>
+                            <input type="date" id="filtroFecha" class="form-input" onchange="filtrarReclamos()">
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button class="btn btn--secondary w-100" onclick="limpiarFiltros()">
+                                <i class="fas fa-sync-alt me-1"></i> Limpiar filtros
+                            </button>
+                        </div>
+
+                        <!-- Buscador de texto -->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="buscarReclamo" class="form-input"
+                                        placeholder="Buscar por N° de expediente o asunto..."
+                                        oninput="filtrarReclamos()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de Reclamos -->
+                        <div class="table-container">
+                            <table class="data-table" id="tablaMisReclamos">
+                                <thead>
+                                    <tr>
+                                        <th>N° Expediente</th>
+                                        <th>Fecha</th>
+                                        <th>Asunto</th>
+                                        <th>Tipo</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cuerpoTablaReclamos">
+                                    <tr th:each="reclamo : ${reclamos}" th:data-estado="${reclamo.estado.nombreEstado}"
+                                        th:data-fecha="${#temporals.format(reclamo.fechaRegistro, 'yyyy-MM-dd')}">
+                                        <td>
+                                            <strong th:text="${reclamo.codigoSeguimiento}">EXP-2026-XXXX</strong>
+                                        </td>
+                                        <td th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy')}">
+                                            29/09/2026</td>
+                                        <td th:text="${reclamo.asunto}">Solicitud de licencia</td>
+                                        <td th:text="${reclamo.categoria.nombreCategoria}">Reclamo</td>
+                                        <td>
+                                            <span class="badge"
+                                                th:classappend="${reclamo.estado.nombreEstado == 'Pendiente'} ? 'badge--warning' : 
+                                                               (${reclamo.estado.nombreEstado == 'En proceso'} ? 'badge--info' : 
+                                                               (${reclamo.estado.nombreEstado == 'Resuelto'} ? 'badge--success' : 'badge--secondary'))"
+                                                th:text="${reclamo.estado.nombreEstado}">Pendiente</span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/reclamos/detalle/{id}(id=${reclamo.idReclamo})}"
+                                                class="btn-icon" title="Ver detalle">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(reclamos)}">
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            No tienes reclamos registrados.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
     </main>
 
     <footer th:replace="~{fragments/layout :: footer}"></footer>
     <div th:replace="~{fragments/layout :: scripts}"></div>
 
+    <script>
+        function filtrarReclamos() {
+            const texto = (document.getElementById('buscarReclamo')?.value || '').toLowerCase();
+            const estado = document.getElementById('filtroEstado')?.value || '';
+            const fechaDesde = document.getElementById('filtroFecha')?.value || '';
+
+            const filas = document.querySelectorAll('#cuerpoTablaReclamos tr');
+
+            filas.forEach(fila => {
+                // Ignorar la fila de mensaje "No tienes reclamos"
+                if (fila.querySelector('td[colspan]')) return;
+
+                const textoFila = fila.textContent.toLowerCase();
+                const estadoFila = fila.getAttribute('data-estado') || '';
+                const fechaFila = fila.getAttribute('data-fecha') || ''; // Formato yyyy-MM-dd
+
+                const coincideTexto = texto === '' || textoFila.includes(texto);
+                const coincideEstado = estado === '' || estadoFila === estado;
+                // Comparación de fechas como texto funciona perfecto en formato yyyy-MM-dd
+                const coincideFecha = fechaDesde === '' || fechaFila >= fechaDesde;
+
+                if (coincideTexto && coincideEstado && coincideFecha) {
+                    fila.style.display = '';
+                } else {
+                    fila.style.display = 'none';
+                }
+            });
+        }
+
+        function limpiarFiltros() {
+            document.getElementById('buscarReclamo').value = '';
+            document.getElementById('filtroEstado').value = '';
+            document.getElementById('filtroFecha').value = '';
+            filtrarReclamos();
+        }
+    </script>
+
 </body>
+
 </html>

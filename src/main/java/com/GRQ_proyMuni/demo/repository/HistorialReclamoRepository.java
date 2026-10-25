@@ -9,4 +9,6 @@ import java.util.List;
 public interface HistorialReclamoRepository extends JpaRepository<HistorialReclamo, Integer> {
     // Método personalizado para obtener el historial de un reclamo ordenado por fecha
     List<HistorialReclamo> findByReclamoIdReclamoOrderByFechaCambioDesc(Integer idReclamo);
+
+    boolean existsByEstadoIdEstado(Integer idEstado);
 }

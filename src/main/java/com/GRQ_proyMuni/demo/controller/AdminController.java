@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin/catalogos")
@@ -34,13 +35,20 @@ public class AdminController {
 
     // Vista única para gestionar todos los catálogos
     @GetMapping
-    public String gestionCatalogos(Model model) {
+    public String gestionCatalogos(Model model, HttpSession session) {
+        // Obtener usuario logueado
+        Integer usuarioId = (Integer) session.getAttribute("authenticatedUserId");
+        if (usuarioId != null) {
+            var usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+            model.addAttribute("usuario", usuario);
+        }
+        
         model.addAttribute("areas", areaService.listarTodos());
         model.addAttribute("categorias", categoriaService.listarTodos());
         model.addAttribute("estados", estadoService.listarTodos());
         model.addAttribute("roles", rolService.listarTodos());
         model.addAttribute("tiposDocumento", tipoDocumentoService.listarTodos());
-        return "catalogos"; // Crearás UN solo HTML
+        return "catalogos";
     }
 
     // Guardar Área

@@ -22,16 +22,16 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navCiu">
-            <ul class="navbar-nav ms-auto gap-2">
-                <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'inicio'} ? 'active fw-bold'" th:href="@{/}">Inicio</a></li>
+            <ul class="navbar-nav ms-auto gap-2 align-items-center">
                 <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'nuevo'} ? 'active fw-bold'" th:href="@{/reclamos/nuevo}">Nuevo Reclamo</a></li>
                 <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'mis'} ? 'active fw-bold'" th:href="@{/reclamos/mis-reclamos}">Mis Reclamos</a></li>
-                <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'consulta'} ? 'active fw-bold'" th:href="@{/consulta}">Consulta</a></li>
-                <li class="nav-item" th:if="${session.authenticatedUserId == null}">
-                    <a class="nav-link btn btn-light text-danger ms-2" th:href="@{/login}">Ingresar</a>
-                </li>
-                <li class="nav-item" th:if="${session.authenticatedUserId != null}">
-                    <a class="nav-link btn btn-light text-danger ms-2" th:href="@{/logout}">Salir</a>
+                <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Salir</a></li>
+                <!-- Mostrar nombre del usuario si está logueado -->
+                <li class="nav-item" th:if="${usuario != null}">
+                    <span class="nav-link" style="background: rgba(255,255,255,0.15); border-radius: 20px; padding: 0.4rem 1rem; font-weight: 500; font-size: 0.9rem;">
+                        <i class="fas fa-user me-1"></i>
+                        <span th:text="${usuario.nombre + ' ' + usuario.apellidos}">Usuario</span>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -46,15 +46,31 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navAdm">
-            <ul class="navbar-nav ms-auto gap-2">
+            <ul class="navbar-nav ms-auto gap-2 align-items-center">
+                <!-- Siempre visible -->
                 <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'bandeja'} ? 'active fw-bold'" th:href="@{/reclamos/bandeja}">Bandeja</a></li>
                 <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'estadisticas'} ? 'active fw-bold'" th:href="@{/admin/estadisticas}">Estadísticas</a></li>
-                <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'usuarios'} ? 'active fw-bold'" th:href="@{/usuarios/lista}">Usuarios</a></li>
                 
-                <!-- ENLACE A CATÁLOGOS -->
-                <li class="nav-item"><a class="nav-link" th:classappend="${activo == 'catalogos'} ? 'active fw-bold'" th:href="@{/admin/catalogos}">Catálogos</a></li>
+                <!-- Solo para Administradores -->
+                <li class="nav-item" th:if="${usuario != null and 'Administrador'.equalsIgnoreCase(usuario.rol.nombreRol)}">
+                    <a class="nav-link" th:classappend="${activo == 'usuarios'} ? 'active fw-bold'" th:href="@{/usuarios/lista}">Usuarios</a>
+                </li>
+                <li class="nav-item" th:if="${usuario != null and 'Administrador'.equalsIgnoreCase(usuario.rol.nombreRol)}">
+                    <a class="nav-link" th:classappend="${activo == 'catalogos'} ? 'active fw-bold'" th:href="@{/admin/catalogos}">Catálogos</a>
+                </li>
                 
-                <li class="nav-item"><a class="nav-link btn btn-light text-danger ms-2" th:href="@{/logout}">Salir</a></li>
+                <!-- Nombre del usuario -->
+                <li class="nav-item" th:if="${usuario != null}">
+                    <span class="nav-link" style="background: rgba(255,255,255,0.15); border-radius: 20px; padding: 0.4rem 1rem; font-weight: 500; font-size: 0.9rem;">
+                        <i class="fas fa-user-shield me-1"></i>
+                        <span th:text="${usuario.nombre + ' ' + usuario.apellidos}">Usuario</span>
+                    </span>
+                </li>
+                
+                <!-- Botón Salir -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Salir</a>
+                </li>
             </ul>
         </div>
     </div>

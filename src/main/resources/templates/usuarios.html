@@ -12,7 +12,7 @@
         <div class="container">
             <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
             <div th:if="${mensaje}" class="alert alert-success" role="alert" th:text="${mensaje}"></div>
-            
+
             <!-- Breadcrumb -->
             <div class="breadcrumb">
                 <a th:href="@{/reclamos/bandeja}"><i class="fas fa-home me-1"></i> Inicio</a>
@@ -72,12 +72,14 @@
             <div class="filters-bar">
                 <div class="filters-bar__search">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="buscarUsuario" class="form-input" placeholder="Buscar por nombre, correo o DNI...">
+                    <input type="text" id="buscarUsuario" class="form-input"
+                        placeholder="Buscar por nombre, correo o DNI...">
                 </div>
                 <div class="filters-bar__group">
                     <select id="filtroRol" class="form-select">
                         <option value="">Todos los roles</option>
-                        <option th:each="rol : ${roles}" th:value="${rol.nombreRol}" th:text="${rol.nombreRol}">Rol</option>
+                        <option th:each="rol : ${roles}" th:value="${rol.nombreRol}" th:text="${rol.nombreRol}">Rol
+                        </option>
                     </select>
                     <select id="filtroEstado" class="form-select">
                         <option value="">Todos los estados</option>
@@ -86,7 +88,8 @@
                     </select>
                     <select id="filtroArea" class="form-select">
                         <option value="">Todas las áreas</option>
-                        <option th:each="area : ${areas}" th:value="${area.nombreArea}" th:text="${area.nombreArea}">Área</option>
+                        <option th:each="area : ${areas}" th:value="${area.nombreArea}" th:text="${area.nombreArea}">
+                            Área</option>
                     </select>
                     <button class="btn btn--secondary btn--sm" onclick="limpiarFiltros()">
                         <i class="fas fa-sync-alt me-1"></i> Limpiar
@@ -111,17 +114,19 @@
                         </tr>
                     </thead>
                     <tbody id="cuerpoTablaUsuarios">
-                        <tr th:each="usuario, iterStat : ${usuarios}" 
-                            th:data-rol="${usuario.rol.nombreRol}"
-                            th:data-activo="${usuario.estadoActivo}"
-                            th:data-area="${usuario.area.nombreArea}">
+                        <tr th:each="usuario, iterStat : ${usuarios}" th:data-rol="${usuario.rol.nombreRol}"
+                            th:data-activo="${usuario.estadoActivo}" th:data-area="${usuario.area.nombreArea}">
                             <td th:text="${iterStat.index + 1}">1</td>
                             <td>
                                 <div class="user-cell">
-                                    <div class="user-avatar" th:text="${#strings.substring(usuario.nombre, 0, 1) + #strings.substring(usuario.apellidos, 0, 1)}">LT</div>
+                                    <div class="user-avatar"
+                                        th:text="${#strings.substring(usuario.nombre, 0, 1) + #strings.substring(usuario.apellidos, 0, 1)}">
+                                        LT</div>
                                     <div class="user-info">
-                                        <span class="user-name" th:text="${usuario.nombre + ' ' + usuario.apellidos}">Lucero Turpo</span>
-                                        <span class="user-dni" th:text="'DNI: ' + ${usuario.numeroDocumento}">DNI: 60784219</span>
+                                        <span class="user-name"
+                                            th:text="${usuario.nombre + ' ' + usuario.apellidos}">Lucero Turpo</span>
+                                        <span class="user-dni" th:text="'DNI: ' + ${usuario.numeroDocumento}">DNI:
+                                            60784219</span>
                                     </div>
                                 </div>
                             </td>
@@ -133,21 +138,28 @@
                             </td>
                             <td th:text="${usuario.area.nombreArea}">Ciudadanía</td>
                             <td>
-                                <span class="badge" 
-                                      th:classappend="${usuario.estadoActivo} ? 'badge--success' : 'badge--danger'"
-                                      th:text="${usuario.estadoActivo} ? 'ACTIVO' : 'INACTIVO'">ACTIVO</span>
+                                <span class="badge"
+                                    th:classappend="${usuario.estadoActivo} ? 'badge--success' : 'badge--danger'"
+                                    th:text="${usuario.estadoActivo} ? 'ACTIVO' : 'INACTIVO'">ACTIVO</span>
                             </td>
                             <td>
-                                <a th:href="@{/usuarios/{id}/editar(id=${usuario.idUsuario})}"
-                                   class="btn-icon" title="Editar usuario">
+                                <a th:href="@{/usuarios/{id}/editar(id=${usuario.idUsuario})}" class="btn-icon"
+                                    title="Editar usuario">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form th:action="@{/usuarios/{id}/estado(id=${usuario.idUsuario})}" method="post" style="display:inline;">
-                                    <button type="submit" class="btn-icon btn-icon--danger" 
-                                            th:title="${usuario.estadoActivo} ? 'Desactivar (eliminación lógica)' : 'Activar'">
+                                <form th:action="@{/usuarios/{id}/estado(id=${usuario.idUsuario})}" method="post"
+                                    style="display:inline;">
+                                    <button type="submit" class="btn-icon btn-icon--danger"
+                                        th:title="${usuario.estadoActivo} ? 'Desactivar (eliminación lógica)' : 'Activar'">
                                         <i class="fas fa-user-slash"></i>
                                     </button>
                                 </form>
+                            </td>
+                        </tr>
+                        <!-- Mensaje si no hay usuarios -->
+                        <tr th:if="${#lists.isEmpty(usuarios)}">
+                            <td colspan="9" class="text-center text-muted py-4">
+                                No hay usuarios registrados en el sistema.
                             </td>
                         </tr>
                     </tbody>
@@ -158,14 +170,14 @@
     </main>
 
     <!-- Modal Nuevo Usuario -->
-    <div class="modal-overlay" id="modalNuevoUsuario" style="display:none;">
-        <div class="modal">
-            <div class="modal__header">
-                <h3 class="modal__title"><i class="fas fa-user-plus me-2"></i>Nuevo Usuario</h3>
-                <button class="modal__close" onclick="cerrarModal()">&times;</button>
+    <div id="modalNuevoUsuario" class="mi-modal-overlay">
+        <div class="mi-modal">
+            <div class="mi-modal__header">
+                <h3 class="mi-modal__title"><i class="fas fa-user-plus me-2"></i>Nuevo Usuario</h3>
+                <button type="button" class="mi-modal__close" onclick="cerrarModal()">&times;</button>
             </div>
-            <form th:action="@{/usuarios}" method="post">
-                <div class="modal__body">
+            <form th:action="@{/usuarios}" method="post" data-confirm-password>
+                <div class="mi-modal__body">
                     <div class="form-row">
                         <div class="form-group form-group--sm">
                             <label class="form-label">Tipo documento</label>
@@ -198,14 +210,16 @@
                             <label class="form-label">Rol *</label>
                             <select name="rol.idRol" class="form-select" required>
                                 <option value="">Selecciona</option>
-                                <option th:each="rol : ${roles}" th:value="${rol.idRol}" th:text="${rol.nombreRol}">Rol</option>
+                                <option th:each="rol : ${roles}" th:value="${rol.idRol}" th:text="${rol.nombreRol}">Rol
+                                </option>
                             </select>
                         </div>
                         <div class="form-group form-group--sm">
                             <label class="form-label">Área *</label>
                             <select name="area.idArea" class="form-select" required>
                                 <option value="">Selecciona</option>
-                                <option th:each="area : ${areas}" th:value="${area.idArea}" th:text="${area.nombreArea}">Área</option>
+                                <option th:each="area : ${areas}" th:value="${area.idArea}"
+                                    th:text="${area.nombreArea}">Área</option>
                             </select>
                         </div>
                         <div class="form-group form-group--sm">
@@ -218,7 +232,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal__footer">
+                <div class="mi-modal__footer">
                     <button type="button" class="btn btn--secondary" onclick="cerrarModal()">Cancelar</button>
                     <button type="submit" class="btn btn--primary">
                         <i class="fas fa-save me-1"></i> Guardar
@@ -231,80 +245,117 @@
     <footer th:replace="~{fragments/layout :: footer}"></footer>
     <div th:replace="~{fragments/layout :: scripts}"></div>
 
-    <!-- Script de Filtrado Inline -->
+    <!-- Script de Filtrado y Modal -->
     <script>
-        // Funciones de filtrado
+        console.log('✅ Script de usuarios.html cargado');
+
+        window.abrirModal = function () {
+            console.log('🔴 abrirModal() llamado');
+            const modalOverlay = document.getElementById('modalNuevoUsuario');
+            if (modalOverlay) {
+                console.log('✅ Modal encontrado, mostrando...');
+                modalOverlay.classList.add('mi-modal--active');
+            } else {
+                console.error('❌ Modal NO encontrado en el DOM');
+            }
+        };
+
+        window.cerrarModal = function () {
+            console.log('🔴 cerrarModal() llamado');
+            const modalOverlay = document.getElementById('modalNuevoUsuario');
+            if (modalOverlay) {
+                modalOverlay.classList.remove('mi-modal--active');
+            }
+        };
+
+        // Event listener DIRECTO al botón (por si acaso)
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('✅ DOMContentLoaded disparado');
+
+            const btnNuevoUsuario = document.querySelector('button[onclick="abrirModal()"]');
+            if (btnNuevoUsuario) {
+                console.log('✅ Botón "Nuevo Usuario" encontrado');
+                btnNuevoUsuario.addEventListener('click', function (e) {
+                    console.log('🔵 Click en botón detectado, ejecutando abrirModal()...');
+                    window.abrirModal();
+                });
+            }
+
+            // Verificar que el modal existe
+            const modalOverlay = document.getElementById('modalNuevoUsuario');
+            if (modalOverlay) {
+                console.log('✅ Elemento modalNuevoUsuario existe en el DOM');
+
+                // Cerrar al hacer clic fuera del modal
+                modalOverlay.addEventListener('click', function (e) {
+                    if (e.target === this) {
+                        console.log('🔵 Clic fuera del modal, cerrando...');
+                        window.cerrarModal();
+                    }
+                });
+            } else {
+                console.error('❌ Elemento modalNuevoUsuario NO existe en el DOM');
+            }
+        });
+
+        // Funciones de filtrado y exportación
         function filtrarUsuarios() {
-            const texto = document.getElementById('buscarUsuario').value.toLowerCase();
-            const rol = document.getElementById('filtroRol').value;
-            const estado = document.getElementById('filtroEstado').value;
-            const area = document.getElementById('filtroArea').value;
-            
-            const filas = document.querySelectorAll('#cuerpoTablaUsuarios tr');
-            
-            filas.forEach(fila => {
-                const textoFila = fila.textContent.toLowerCase();
-                const rolFila = fila.getAttribute('data-rol') || '';
-                const activoFila = fila.getAttribute('data-activo') || '';
-                const areaFila = fila.getAttribute('data-area') || '';
-                
-                const coincideTexto = texto === '' || textoFila.includes(texto);
-                const coincideRol = rol === '' || rolFila === rol;
-                const coincideEstado = estado === '' || activoFila === estado;
-                const coincideArea = area === '' || areaFila === area;
-                
-                if (coincideTexto && coincideRol && coincideEstado && coincideArea) {
-                    fila.style.display = '';
-                } else {
-                    fila.style.display = 'none';
-                }
+            const texto = (document.getElementById('buscarUsuario')?.value || '').toLowerCase();
+            const rol = document.getElementById('filtroRol')?.value || '';
+            const estado = document.getElementById('filtroEstado')?.value || '';
+            const area = document.getElementById('filtroArea')?.value || '';
+
+            document.querySelectorAll('#cuerpoTablaUsuarios tr').forEach(fila => {
+                if (fila.querySelector('td[colspan]')) return;
+
+                const coincideTexto = texto === '' || fila.textContent.toLowerCase().includes(texto);
+                const coincideRol = rol === '' || fila.getAttribute('data-rol') === rol;
+                const coincideEstado = estado === '' || fila.getAttribute('data-activo') === estado;
+                const coincideArea = area === '' || fila.getAttribute('data-area') === area;
+
+                fila.style.display = (coincideTexto && coincideRol && coincideEstado && coincideArea) ? '' : 'none';
             });
         }
-        
+
         function limpiarFiltros() {
-            document.getElementById('buscarUsuario').value = '';
-            document.getElementById('filtroRol').value = '';
-            document.getElementById('filtroEstado').value = '';
-            document.getElementById('filtroArea').value = '';
+            ['buscarUsuario', 'filtroRol', 'filtroEstado', 'filtroArea'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
             filtrarUsuarios();
         }
-        
+
         function exportarTabla() {
-            const tabla = document.getElementById('tablaUsuarios');
+            console.log('🔵 Exportando tabla...');
             let csv = [];
-            const filas = tabla.querySelectorAll('tr');
-            
-            filas.forEach(fila => {
+            document.querySelectorAll('#tablaUsuarios tr').forEach(fila => {
                 if (fila.style.display !== 'none') {
-                    const cols = fila.querySelectorAll('td, th');
                     const rowData = [];
-                    cols.forEach(col => rowData.push(col.textContent.trim()));
+                    fila.querySelectorAll('td, th').forEach(col => rowData.push('"' + col.textContent.trim().replace(/"/g, '""') + '"'));
                     csv.push(rowData.join(','));
                 }
             });
-            
-            const csvContent = csv.join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const blob = new Blob(["\uFEFF" + csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'usuarios.csv';
             link.click();
         }
-        
-        function abrirModal() {
-            document.getElementById('modalNuevoUsuario').style.display = 'flex';
-        }
-        
-        function cerrarModal() {
-            document.getElementById('modalNuevoUsuario').style.display = 'none';
-        }
-        
-        // Event listeners
-        document.getElementById('buscarUsuario').addEventListener('input', filtrarUsuarios);
-        document.getElementById('filtroRol').addEventListener('change', filtrarUsuarios);
-        document.getElementById('filtroEstado').addEventListener('change', filtrarUsuarios);
-        document.getElementById('filtroArea').addEventListener('change', filtrarUsuarios);
+
+        // Event listeners para filtros
+        document.addEventListener('DOMContentLoaded', function () {
+            const buscarInput = document.getElementById('buscarUsuario');
+            const filtroRol = document.getElementById('filtroRol');
+            const filtroEstado = document.getElementById('filtroEstado');
+            const filtroArea = document.getElementById('filtroArea');
+
+            if (buscarInput) buscarInput.addEventListener('input', filtrarUsuarios);
+            if (filtroRol) filtroRol.addEventListener('change', filtrarUsuarios);
+            if (filtroEstado) filtroEstado.addEventListener('change', filtrarUsuarios);
+            if (filtroArea) filtroArea.addEventListener('change', filtrarUsuarios);
+        });
     </script>
 
 </body>
+
 </html>

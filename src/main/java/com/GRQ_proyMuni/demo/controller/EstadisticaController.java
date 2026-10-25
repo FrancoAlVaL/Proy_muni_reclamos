@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -34,7 +35,14 @@ public class EstadisticaController {
 
     // 1. VISTA PRINCIPAL (Carga inicial de la página)
     @GetMapping("/estadisticas")
-    public String estadisticas(Model model) {
+    public String estadisticas(Model model, HttpSession session) {
+        // Obtener usuario logueado
+        Integer usuarioId = (Integer) session.getAttribute("authenticatedUserId");
+        if (usuarioId != null) {
+            var usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+            model.addAttribute("usuario", usuario);
+        }
+        
         List<Reclamo> reclamos = reclamoService.listarTodos();
         var estados = reclamos.stream().collect(Collectors.groupingBy(
                 reclamo -> reclamo.getEstado().getNombreEstado(), Collectors.counting()));

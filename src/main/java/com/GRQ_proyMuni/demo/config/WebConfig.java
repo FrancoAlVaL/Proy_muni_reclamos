@@ -20,6 +20,6 @@ public class WebConfig implements WebMvcConfigurer {
                 "/reclamos/mis-reclamos", "/reclamos/detalle/**",
                 "/reclamos/respuestas/**",
                 "/usuarios/lista", "/usuarios", "/usuarios/*/estado",
-                "/usuarios/*/editar");
+                "/usuarios/*/editar", "/api/**");
     }
 }

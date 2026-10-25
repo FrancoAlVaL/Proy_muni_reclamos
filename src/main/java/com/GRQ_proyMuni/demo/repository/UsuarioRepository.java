@@ -12,4 +12,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     
     // Buscar usuario por DNI
     Optional<Usuario> findByNumeroDocumento(String numeroDocumento);
+
+    boolean existsByAreaIdArea(Integer idArea);
+
+    boolean existsByRolIdRol(Integer idRol);
 }

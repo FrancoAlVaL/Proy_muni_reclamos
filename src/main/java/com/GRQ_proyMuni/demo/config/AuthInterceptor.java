@@ -1,14 +1,16 @@
 package com.GRQ_proyMuni.demo.config;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
 import com.GRQ_proyMuni.demo.entity.Usuario;
 import com.GRQ_proyMuni.demo.service.ReclamoService;
 import com.GRQ_proyMuni.demo.service.RespuestaService;
 import com.GRQ_proyMuni.demo.service.UsuarioService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
@@ -28,6 +30,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         String path = request.getRequestURI().substring(request.getContextPath().length());
+        boolean apiRequest = path.startsWith("/api/");
         boolean editarUsuario = path.matches("/usuarios/\\d+/editar");
         
         boolean personalOnly = path.startsWith("/admin/")
@@ -47,11 +50,13 @@ public class AuthInterceptor implements HandlerInterceptor {
                     || "POST".equalsIgnoreCase(request.getMethod())))
                 || ((path.equals("/usuarios") || path.startsWith("/usuarios/"))
                     && "POST".equalsIgnoreCase(request.getMethod())
-                    && !path.equals("/usuarios/registro"));
+                    && !path.equals("/usuarios/registro"))
+                || apiRequest;
                     
         boolean loginRequired = personalOnly || path.equals("/reclamos/mis-reclamos")
                 || path.startsWith("/reclamos/detalle/")
-                || path.startsWith("/reclamos/respuestas/");
+                || path.startsWith("/reclamos/respuestas/")
+                || apiRequest;
 
         if (!loginRequired) return true;
 
@@ -59,6 +64,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         Object sessionUserId = session == null ? null : session.getAttribute("authenticatedUserId");
         
         if (!(sessionUserId instanceof Integer userId)) {
+            if (apiRequest) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return false;
+            }
             response.sendRedirect(request.getContextPath() + "/login?required");
             return false;
         }
@@ -66,6 +75,10 @@ public class AuthInterceptor implements HandlerInterceptor {
         Usuario usuario = usuarioService.buscarPorId(userId).orElse(null);
         if (usuario == null || !Boolean.TRUE.equals(usuario.getEstadoActivo())) {
             if (session != null) session.invalidate();
+            if (apiRequest) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return false;
+            }
             response.sendRedirect(request.getContextPath() + "/login?required");
             return false;
         }
@@ -80,7 +93,6 @@ public class AuthInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        // ✅ CORRECCIÓN 1: Bloque separado para detalle de reclamo
         if (!personal && path.startsWith("/reclamos/detalle/")) {
             String rawId = path.substring("/reclamos/detalle/".length());
             try {
@@ -97,7 +109,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
         }
 
-        // ✅ CORRECCIÓN 2: Bloque separado para respuestas (fuera del anterior)
+
         if (!personal && path.startsWith("/reclamos/respuestas/")) {
             String rawRespuestaId = path.substring("/reclamos/respuestas/".length()).split("/", 2)[0];
             try {

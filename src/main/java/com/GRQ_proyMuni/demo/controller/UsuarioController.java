@@ -134,7 +134,14 @@ public class UsuarioController {
 
     // Lista de usuarios para el administrador
     @GetMapping("/lista")
-    public String listarUsuarios(Model model) {
+    public String listarUsuarios(Model model, HttpSession session) {
+        // Obtener usuario logueado
+        Integer usuarioId = (Integer) session.getAttribute("authenticatedUserId");
+        if (usuarioId != null) {
+            var usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+            model.addAttribute("usuario", usuario);
+        }
+        
         var usuarios = usuarioService.listarTodos();
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("roles", rolService.listarTodos());

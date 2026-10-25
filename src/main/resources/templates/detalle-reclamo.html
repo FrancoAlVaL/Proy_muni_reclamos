@@ -10,7 +10,7 @@
 
     <main class="main">
         <div class="container">
-            
+
             <!-- Breadcrumb / Volver -->
             <div class="breadcrumb">
                 <a th:href="@{/reclamos/mis-reclamos}"><i class="fas fa-arrow-left me-1"></i> Volver a mis reclamos</a>
@@ -23,18 +23,19 @@
                         Expediente N° <span th:text="${reclamo.codigoSeguimiento}">EXP-2026-001</span>
                     </h1>
                     <p class="detail-date">
-                        Registrado el <span th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy HH:mm')}">15/01/2026</span>
+                        Registrado el <span
+                            th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy HH:mm')}">15/01/2026</span>
                     </p>
                 </div>
                 <div>
-                    <span class="badge badge--lg" 
-                          th:classappend="${reclamo.estado.nombreEstado == 'Resuelto'} ? 'badge--success' : (${reclamo.estado.nombreEstado == 'En proceso'} ? 'badge--primary' : 'badge--warning')"
-                          th:text="${reclamo.estado.nombreEstado}">Pendiente</span>
+                    <span class="badge badge--lg"
+                        th:classappend="${reclamo.estado.nombreEstado == 'Resuelto'} ? 'badge--success' : (${reclamo.estado.nombreEstado == 'En proceso'} ? 'badge--primary' : 'badge--warning')"
+                        th:text="${reclamo.estado.nombreEstado}">Pendiente</span>
                 </div>
             </div>
 
             <div class="detail-grid">
-                
+
                 <!-- Información del Reclamo -->
                 <div class="card">
                     <div class="card__header">
@@ -50,21 +51,44 @@
                             <span class="detail-value" th:text="${reclamo.categoria.nombreCategoria}">Reclamo</span>
                         </div>
                         <div class="detail-row">
+                            <span class="detail-label">Prioridad:</span>
+                            <span class="detail-value">
+                                <span class="badge" th:classappend="${reclamo.prioridad == 'ALTA'} ? 'badge--danger' : 
+                               (${reclamo.prioridad == 'MEDIA'} ? 'badge--warning' : 'badge--secondary')"
+                                    th:text="${reclamo.prioridad}">MEDIA</span>
+                            </span>
+                        </div>
+                        <div class="detail-row">
                             <span class="detail-label">Asunto:</span>
                             <span class="detail-value" th:text="${reclamo.asunto}">Asunto...</span>
                         </div>
                         <div class="detail-row" style="flex-direction: column;">
                             <span class="detail-label mb-1">Descripción:</span>
-                            <span class="detail-value" th:text="${reclamo.descripcion}" style="text-align: justify;">Descripción...</span>
+                            <span class="detail-value" th:text="${reclamo.descripcion}"
+                                style="text-align: justify;">Descripción...</span>
                         </div>
-                        <div class="detail-row" th:if="${reclamo.observaciones != null and !reclamo.observaciones.isBlank()}">
+                        <div class="detail-row"
+                            th:if="${reclamo.observaciones != null and !reclamo.observaciones.isBlank()}">
                             <span class="detail-label">Observaciones:</span>
                             <span class="detail-value" th:text="${reclamo.observaciones}">...</span>
                         </div>
-                        <div class="detail-row" th:if="${reclamo.archivoEvidencia != null}">
+                        
+                        <div class="detail-row"
+                            th:if="${reclamo.archivoEvidencia != null and !reclamo.archivoEvidencia.isBlank()}">
                             <span class="detail-label">Adjunto:</span>
                             <span class="detail-value">
-                                <a href="#" class="login-link"><i class="fas fa-file-pdf me-1"></i> Descargar evidencia</a>
+                                <a th:href="@{/reclamos/evidencia/{id}(id=${reclamo.idReclamo})}" class="login-link"
+                                    target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-file-pdf text-danger"></i>
+                                    <span>Descargar evidencia</span>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="detail-row"
+                            th:if="${reclamo.archivoEvidencia == null or reclamo.archivoEvidencia.isBlank()}">
+                            <span class="detail-label">Adjunto:</span>
+                            <span class="detail-value text-muted">
+                                <i class="fas fa-info-circle me-1"></i> Sin documentos adjuntos
                             </span>
                         </div>
                     </div>
@@ -78,11 +102,14 @@
                     <div class="card__body">
                         <div class="detail-row">
                             <span class="detail-label">Nombre:</span>
-                            <span class="detail-value" th:text="${reclamo.usuario.nombre + ' ' + reclamo.usuario.apellidos}">Juan Pérez</span>
+                            <span class="detail-value"
+                                th:text="${reclamo.usuario.nombre + ' ' + reclamo.usuario.apellidos}">Juan Pérez</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Documento:</span>
-                            <span class="detail-value" th:text="${reclamo.usuario.tipoDocumento + ' ' + reclamo.usuario.numeroDocumento}">DNI 12345678</span>
+                            <span class="detail-value"
+                                th:text="${reclamo.usuario.tipoDocumento + ' ' + reclamo.usuario.numeroDocumento}">DNI
+                                12345678</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Teléfono:</span>
@@ -101,14 +128,16 @@
                         <h3 class="card__title"><i class="fas fa-history me-2"></i>Seguimiento y Respuestas</h3>
                     </div>
                     <div class="card__body">
-                        
+
                         <!-- Estado inicial -->
                         <div class="timeline">
                             <div class="timeline-item timeline-item--active">
                                 <div class="timeline-icon"><i class="fas fa-paper-plane"></i></div>
                                 <div class="timeline-content">
                                     <h4>Reclamo Registrado</h4>
-                                    <p class="timeline-date" th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy HH:mm')}">15/01/2026</p>
+                                    <p class="timeline-date"
+                                        th:text="${#temporals.format(reclamo.fechaRegistro, 'dd/MM/yyyy HH:mm')}">
+                                        15/01/2026</p>
                                     <p>El documento fue presentado exitosamente en Mesa de Partes Virtual.</p>
                                 </div>
                             </div>
@@ -119,13 +148,17 @@
                                 <div class="timeline-content">
                                     <h4>
                                         <span th:text="${respuesta.estadoRespuesta}">En proceso</span>
-                                        <span class="badge badge--secondary ms-2" th:text="${respuesta.usuario.nombre}">Operador</span>
+                                        <span class="badge badge--secondary ms-2"
+                                            th:text="${respuesta.usuario.nombre}">Operador</span>
                                     </h4>
-                                    <p class="timeline-date" th:text="${#temporals.format(respuesta.fechaRespuesta, 'dd/MM/yyyy HH:mm')}">16/01/2026</p>
+                                    <p class="timeline-date"
+                                        th:text="${#temporals.format(respuesta.fechaRespuesta, 'dd/MM/yyyy HH:mm')}">
+                                        16/01/2026</p>
                                     <p th:text="${respuesta.contenido}">Observación de la respuesta...</p>
-                                    
+
                                     <div th:if="${respuesta.archivoAdjunto != null}">
-                                        <a th:href="@{/respuestas/{id}/archivo(id=${respuesta.idRespuesta})}" class="btn-icon" title="Descargar adjunto">
+                                        <a th:href="@{/respuestas/{id}/archivo(id=${respuesta.idRespuesta})}"
+                                            class="btn-icon" title="Descargar adjunto">
                                             <i class="fas fa-download"></i>
                                         </a>
                                     </div>
@@ -149,4 +182,5 @@
     <div th:replace="~{fragments/layout :: scripts}"></div>
 
 </body>
+
 </html>

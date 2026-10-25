@@ -1,0 +1,232 @@
+2026.10.25 12:33:02 INFO  Started: Metals version 1.6.9 in folders '/home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos' for client Code - OSS 1.138.0.[0m
+2026.10.25 12:33:02 INFO  Memory monitor started[0m
+2026.10.25 12:33:03 WARN  Using H2 2.5.250 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.[0m
+2026.10.25 12:33:09 INFO  restarted 0 presentation compilers[0m
+2026.10.25 12:34:14 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:35:50 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/repository/ReclamoRepository.java. Using fallback presentation compiler.[0m
+2026.10.25 12:35:50 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:35:50 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/repository/HistorialReclamoRepository.java. Using fallback presentation compiler.[0m
+2026.10.25 12:35:50 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/repository/UsuarioRepository.java. Using fallback presentation compiler.[0m
+2026.10.25 12:35:50 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:35:50 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/EstadisticaController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/ReclamoController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/UsuarioController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/repository/HistorialReclamoRepository.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/repository/ReclamoRepository.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/repository/UsuarioRepository.java. Using fallback presentation compiler.[0m
+2026.10.25 12:36:59 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:41 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:45 WARN  no build target for: /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java[0m
+2026.10.25 12:37:45 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:37:45 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 1
+2026.10.25 12:37:45 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:45 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:37:46 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 5
+2026.10.25 12:37:46 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:37:46 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 6
+2026.10.25 12:37:46 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:47 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:51 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:52 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:52 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:37:52 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 15
+2026.10.25 12:37:53 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:53 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:53 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:53 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:54 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:37:54 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:37:55 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 22
+2026.10.25 12:38:00 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:00 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:00 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:38:00 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 25
+2026.10.25 12:38:00 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:00 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:01 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:06 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:06 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:07 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:06 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:06 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:06 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:08 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:38:08 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:41:22 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:41:35 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:41 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:41 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:41 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:42 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:49:43 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 52
+oct 25, 2026 12:49:43 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 55
+2026.10.25 12:49:43 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:44 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/CatalogoRestController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:44 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:44 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:49:45 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 62
+2026.10.25 12:49:45 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:46 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:46 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:46 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:47 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:47 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:56 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:56 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:56 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:56 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:56 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:58 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:49:58 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:01 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:01 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:02 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:03 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:11 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:11 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:11 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:11 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:13 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:13 WARN  no build target for: /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java[0m
+2026.10.25 12:50:13 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:16 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:16 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:19 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:19 WARN  no build target for: /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java[0m
+2026.10.25 12:50:19 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:19 WARN  Running javac-semanticdb failed for file:///home/rho/Cursos/Taller%20de%20Desarrollo%20web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Output:
+[0m
+2026.10.25 12:50:20 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:20 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:20 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:20 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:50:21 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 148
+2026.10.25 12:50:22 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:22 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:22 WARN  no build target for: /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java[0m
+2026.10.25 12:50:23 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:23 WARN  Running javac-semanticdb failed for file:///home/rho/Cursos/Taller%20de%20Desarrollo%20web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Output:
+[0m
+2026.10.25 12:50:24 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:24 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:24 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:25 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:50:25 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 160
+2026.10.25 12:50:26 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:26 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:27 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:50:27 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:50:28 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 170
+2026.10.25 12:50:47 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/controller/AdminController.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:14 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:15 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:14 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:51:15 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 182
+2026.10.25 12:51:14 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:17 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:17 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:26 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:26 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:26 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:26 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:26 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:26 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:27 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:27 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:27 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:27 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:27 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:27 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:51:30 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 220
+2026.10.25 12:51:30 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:30 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:31 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:31 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:31 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:31 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:31 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:32 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:32 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:32 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:32 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:32 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:33 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:51:39 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 236
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:51:40 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 238
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:51:40 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 240
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:39 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:40 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:40 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:40 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:40 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:40 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:40 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:50 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:51:58 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:52:07 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:52:07 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:07 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/ValidationTest.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/DemoApplicationTests.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/DemoApplicationTests.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/DemoApplicationTests.java. Using fallback presentation compiler.[0m
+oct 25, 2026 12:54:10 P. M. org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+ADVERTENCIA: Unmatched cancel notification for request id 273
+2026.10.25 12:54:10 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/DemoApplicationTests.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:18 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/test/java/com/GRQ_proyMuni/demo/DemoApplicationTests.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:18 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/DemoApplication.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:18 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/DemoApplication.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:18 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/DemoApplication.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:18 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/DemoApplication.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:29 WARN  no build target for: /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java[0m
+2026.10.25 12:54:29 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/AuthInterceptor.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:30 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/DemoApplication.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:30 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:31 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:30 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:30 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m
+2026.10.25 12:54:36 INFO  no build target found for /home/rho/Cursos/Taller de Desarrollo web/proy_muni/Proy_muni_reclamos/src/main/java/com/GRQ_proyMuni/demo/config/WebConfig.java. Using fallback presentation compiler.[0m

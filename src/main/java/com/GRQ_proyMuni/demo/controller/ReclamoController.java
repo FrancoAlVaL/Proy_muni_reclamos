@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -48,7 +49,14 @@ public class ReclamoController {
 
     // Formulario para nuevo reclamo 
     @GetMapping("/nuevo")
-    public String mostrarNuevoReclamo(Model model) {
+    public String mostrarNuevoReclamo(Model model, HttpSession session) {
+        // Obtener el usuario logueado
+        Integer usuarioId = (Integer) session.getAttribute("authenticatedUserId");
+        if (usuarioId != null) {
+            Usuario usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+            model.addAttribute("usuario", usuario);
+        }
+        
         model.addAttribute("reclamoForm", new ReclamoForm());
         model.addAttribute("categorias", categoriaService.listarTodos());
         model.addAttribute("tipos", tipoDocumentoService.listarTodos());
@@ -171,24 +179,126 @@ public class ReclamoController {
     @GetMapping("/mis-reclamos")
     public String misReclamos(Model model, HttpSession session) {
         Integer usuarioId = (Integer) session.getAttribute("authenticatedUserId");
-        model.addAttribute("reclamos", reclamoService.buscarPorUsuario(usuarioId));
+        if (usuarioId == null) {
+            return "redirect:/login";
+        }
+
+        // 1. Obtener el usuario para mostrar su nombre en el navbar
+        Usuario usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+        
+        // 2. Obtener los reclamos y los estados
+        List<Reclamo> reclamos = reclamoService.buscarPorUsuario(usuarioId);
+        List<Estado> estados = estadoService.listarTodos();
+
+        // 3. Calcular las estadísticas
+        long totalReclamos = reclamos.size();
+        long pendientes = reclamos.stream().filter(r -> "Pendiente".equalsIgnoreCase(r.getEstado().getNombreEstado())).count();
+        long enProceso = reclamos.stream().filter(r -> "En proceso".equalsIgnoreCase(r.getEstado().getNombreEstado())).count();
+        long resueltos = reclamos.stream().filter(r -> "Resuelto".equalsIgnoreCase(r.getEstado().getNombreEstado())).count();
+
+        // 4. Enviar todo al HTML
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("reclamos", reclamos);
+        model.addAttribute("estados", estados);
+        model.addAttribute("totalReclamos", totalReclamos);
+        model.addAttribute("pendientes", pendientes);
+        model.addAttribute("enProceso", enProceso);
+        model.addAttribute("resueltos", resueltos);
+
         return "mis-reclamos";
     }
 
     // Ver detalle de un reclamo 
     @GetMapping("/detalle/{id}")
-    public String verDetalle(@PathVariable Integer id, Model model) {
+    public String verDetalle(@PathVariable Integer id, Model model, HttpSession session) {
         Reclamo reclamo = reclamoService.buscarPorId(id)
                 .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
                         org.springframework.http.HttpStatus.NOT_FOUND));
+        
+        // Obtener el usuario logueado para mostrarlo en el navbar
+        Integer usuarioId = (Integer) session.getAttribute("authenticatedUserId");
+        if (usuarioId != null) {
+            Usuario usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+            model.addAttribute("usuario", usuario);
+        }
+        
         model.addAttribute("reclamo", reclamo);
         model.addAttribute("respuestas", respuestaService.buscarPorReclamo(id));
         return "detalle-reclamo";
     }
+    
+    // Descargar evidencia del reclamo (ruta específica para evitar conflictos)
+    @GetMapping("/reclamos/{id}/evidencia")
+    public ResponseEntity<Resource> descargarEvidenciaReclamo(@PathVariable Integer id) {
+        try {
+            Reclamo reclamo = reclamoService.buscarPorId(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            
+            if (reclamo.getArchivoEvidencia() == null || reclamo.getArchivoEvidencia().isBlank()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay evidencia adjunta.");
+            }
+            
+            Path archivo = Path.of(reclamo.getArchivoEvidencia());
+            if (!Files.isRegularFile(archivo)) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+                    "El archivo no existe en: " + archivo.toAbsolutePath());
+            }
+            
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            ContentDisposition.inline().filename(archivo.getFileName().toString()).build().toString())
+                    .body(new FileSystemResource(archivo));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, 
+                "Error al descargar: " + e.getMessage());
+        }
+    }
+
+    // Descargar evidencia del reclamo
+    @GetMapping("/evidencia/{id}")
+    public ResponseEntity<Resource> descargarEvidencia(@PathVariable Integer id) {
+        try {
+            Reclamo reclamo = reclamoService.buscarPorId(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reclamo no encontrado"));
+            
+            if (reclamo.getArchivoEvidencia() == null || reclamo.getArchivoEvidencia().isBlank()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay evidencia adjunta.");
+            }
+            
+            Path archivo = Path.of(reclamo.getArchivoEvidencia());
+            if (!Files.isRegularFile(archivo)) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+                    "El archivo no existe en la ruta: " + archivo.toAbsolutePath());
+            }
+            
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            ContentDisposition.attachment()
+                                .filename(archivo.getFileName().toString())
+                                .build().toString())
+                    .body(new FileSystemResource(archivo));
+        } catch (ResponseStatusException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, 
+                "Error al descargar el archivo: " + e.getMessage());
+        }
+    }
 
     // Bandeja de entrada para el personal 
     @GetMapping("/bandeja")
-    public String bandejaPersonal(Model model) {
+    public String bandejaPersonal(Model model, HttpSession session) {
+        // Obtener usuario logueado
+        Integer usuarioId = (Integer) session.getAttribute("authenticatedUserId");
+        if (usuarioId != null) {
+            Usuario usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+            model.addAttribute("usuario", usuario);
+        }
+        
         var reclamos = reclamoService.listarTodos();
         model.addAttribute("reclamos", reclamos);
         model.addAttribute("estados", estadoService.listarTodos());
@@ -225,7 +335,14 @@ public class ReclamoController {
 
     // Pantalla de atención para el personal
     @GetMapping("/atencion/{id}")
-    public String atenderReclamo(@PathVariable Integer id, Model model) {
+    public String atenderReclamo(@PathVariable Integer id, Model model, HttpSession session) {
+        // Obtener usuario logueado (admin)
+        Integer usuarioId = (Integer) session.getAttribute("authenticatedUserId");
+        if (usuarioId != null) {
+            var usuario = usuarioService.buscarPorId(usuarioId).orElse(null);
+            model.addAttribute("usuario", usuario);
+        }
+        
         Reclamo reclamo = reclamoService.buscarPorId(id)
                 .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
                         org.springframework.http.HttpStatus.NOT_FOUND));
@@ -235,6 +352,7 @@ public class ReclamoController {
         model.addAttribute("reclamo", reclamo);
         model.addAttribute("estados", estadoService.listarTodos());
         model.addAttribute("areas", areaService.listarTodos());
+        model.addAttribute("respuestas", respuestaService.buscarPorReclamo(id));
         return "atencion";
     }
 
